@@ -24,7 +24,7 @@ npm run preview
 
 **Local Development:**
 1. Start your dev server: `npm run dev`
-2. Visit: `http://localhost:4321/admin/`
+2. Visit: ``
 
 **Production (Netlify):**
 1. Deploy your site to Netlify
