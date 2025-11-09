@@ -1,0 +1,22 @@
+@import "tailwindcss";
+
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap");
+
+@theme {
+  --font-serif: "Playfair Display", serif;
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  
+  --color-primary: #2d4a7c;
+  --color-primary-dark: #1e3a5f;
+  --color-accent: #e63946;
+  --color-purple: #7a5da3;
+  --color-purple-light: #5a4f9c;
+}
+
+body {
+  font-family: var(--font-sans);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-serif);
+}

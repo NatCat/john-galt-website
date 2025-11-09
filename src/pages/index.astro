@@ -1,16 +1,34 @@
 ---
-
+import Header from "../components/Header.astro";
+import Hero from "../components/Hero.astro";
+import Services from "../components/Services.astro";
+import Portfolio from "../components/Portfolio.astro";
+import About from "../components/About.astro";
+import News from "../components/News.astro";
+import Contact from "../components/Contact.astro";
+import Footer from "../components/Footer.astro";
+import "../styles/tailwind.css";
 ---
 
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content="John Galt - Innovative solutions for sustainable technology and industrial automation" />
+    <title>John Galt - Industrial Automation Solutions</title>
+  </head>
+  <body class="min-h-screen bg-white">
+    <Header />
+    <main>
+      <Hero />
+      <Services />
+      <Portfolio />
+      <About />
+      <News />
+      <Contact />
+    </main>
+    <Footer />
+  </body>
 </html>

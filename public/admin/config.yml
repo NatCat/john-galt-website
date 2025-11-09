@@ -1,0 +1,38 @@
+backend:
+  name: test-repo
+  branch: master
+
+local_backend: true
+
+media_folder: public/images/uploads # Media files will be stored in the repo under public/images/uploads
+public_folder: /images/uploads # The src attribute for uploaded media will begin with /images/uploads
+
+collections:
+  - name: "posts" # Used in routes, e.g., /admin/collections/posts
+    label: "Posts" # Used in the UI
+    folder: "src/content/posts" # The path to the folder where the documents are stored
+    create: true # Allow users to create new documents in this collection
+    slug: "{{slug}}" # Filename template, e.g., YYYY-MM-DD-title.md
+    format: frontmatter
+    extension: md
+    fields: # The fields for each document, usually in front matter
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Publish Date", name: "pubDate", widget: "datetime"}
+      - {label: "Description", name: "description", widget: "text"}
+      - {label: "Author", name: "author", widget: "string", required: false, default: "Admin"}
+      - {label: "Body", name: "body", widget: "markdown"}
+      - {label: "Featured Image", name: "image", widget: "image", required: false}
+      - {label: "Tags", name: "tags", widget: "list", required: false}
+      - {label: "Draft", name: "draft", widget: "boolean", default: false, required: false}
+
+  - name: "pages" # Used in routes, e.g., /admin/collections/pages
+    label: "Pages" # Used in the UI
+    folder: "src/content/pages" # The path to the folder where the documents are stored
+    create: true # Allow users to create new documents in this collection
+    slug: "{{slug}}" # Filename template, e.g., about.md
+    format: frontmatter
+    extension: md
+    fields: # The fields for each document, usually in front matter
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Description", name: "description", widget: "text", required: false}
+      - {label: "Body", name: "body", widget: "markdown"}

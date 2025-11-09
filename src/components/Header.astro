@@ -1,0 +1,171 @@
+---
+---
+
+<header class="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-sm shadow-sm z-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center py-4">
+      <!-- Logo -->
+      <div class="flex items-center gap-3">
+        <img src="/logo.png" alt="John Galt" class="h-12 w-auto" onerror="this.style.display='none'" />
+        <div>
+          <div class="text-[#2d4a7c] font-semibold">John Galt</div>
+          <div class="text-sm text-gray-600">Industrial Solutions</div>
+        </div>
+      </div>
+
+      <!-- Desktop Navigation -->
+      <nav class="hidden lg:flex items-center gap-6">
+        <a href="#home" class="text-gray-700 hover:text-[#2d4a7c] transition-colors">Home</a>
+        <a href="#about" class="text-gray-700 hover:text-[#2d4a7c] transition-colors">About</a>
+        <a href="#services" class="text-gray-700 hover:text-[#2d4a7c] transition-colors">Solutions</a>
+        <a href="#portfolio" class="text-gray-700 hover:text-[#2d4a7c] transition-colors">Portfolio</a>
+        
+        <!-- Language Switcher -->
+        <div class="relative group">
+          <button id="lang-toggle" class="flex items-center gap-2 text-gray-700 hover:text-[#2d4a7c] transition-colors px-3 py-2 rounded-md hover:bg-gray-100">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            <span class="text-sm" id="lang-flag">🇺🇸</span>
+          </button>
+          <div id="lang-menu" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg border border-gray-200 py-1">
+            <button class="lang-option w-full text-left px-4 py-2 text-sm hover:bg-gray-100 flex items-center justify-between" data-lang="en">
+              <span class="flex items-center gap-2"><span>🇺🇸</span><span>English</span></span>
+            </button>
+            <button class="lang-option w-full text-left px-4 py-2 text-sm hover:bg-gray-100 flex items-center justify-between" data-lang="ru">
+              <span class="flex items-center gap-2"><span>🇷🇺</span><span>Русский</span></span>
+            </button>
+            <button class="lang-option w-full text-left px-4 py-2 text-sm hover:bg-gray-100 flex items-center justify-between" data-lang="de">
+              <span class="flex items-center gap-2"><span>🇩🇪</span><span>Deutsch</span></span>
+            </button>
+          </div>
+        </div>
+
+        <button class="px-4 py-2 border border-[#2d4a7c] text-[#2d4a7c] rounded-md hover:bg-[#2d4a7c]/5 transition-colors">
+          Log In
+        </button>
+
+        <a href="#contact" class="px-4 py-2 bg-[#2d4a7c] text-white rounded-md hover:bg-[#1e3a5f] transition-colors">
+          Contacts
+        </a>
+      </nav>
+
+      <!-- Mobile Menu Button -->
+      <div class="lg:hidden flex items-center gap-2">
+        <button id="lang-toggle-mobile" class="flex items-center gap-1 text-gray-700 hover:text-[#2d4a7c] transition-colors p-2">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+          <span class="text-sm" id="lang-flag-mobile">🇺🇸</span>
+        </button>
+        
+        <button id="mobile-menu-toggle" class="p-2 text-gray-700 hover:text-[#2d4a7c]">
+          <svg id="menu-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+          <svg id="close-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation -->
+    <nav id="mobile-menu" class="hidden lg:hidden py-4 border-t">
+      <div class="flex flex-col gap-4">
+        <a href="#home" class="text-left text-gray-700 hover:text-[#2d4a7c] transition-colors">Home</a>
+        <a href="#about" class="text-left text-gray-700 hover:text-[#2d4a7c] transition-colors">About</a>
+        <a href="#services" class="text-left text-gray-700 hover:text-[#2d4a7c] transition-colors">Solutions</a>
+        <a href="#portfolio" class="text-left text-gray-700 hover:text-[#2d4a7c] transition-colors">Portfolio</a>
+        <a href="#contact" class="w-full px-4 py-2 bg-[#2d4a7c] text-white rounded-md hover:bg-[#1e3a5f] text-center">
+          Contacts
+        </a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<script>
+  // Language switcher
+  let currentLang = 'en';
+  const languages = {
+    en: { flag: '🇺🇸', name: 'English' },
+    ru: { flag: '🇷🇺', name: 'Русский' },
+    de: { flag: '🇩🇪', name: 'Deutsch' }
+  };
+
+  function updateLanguage(lang) {
+    currentLang = lang;
+    const flagEl = document.getElementById('lang-flag');
+    const flagMobileEl = document.getElementById('lang-flag-mobile');
+    const menuEl = document.getElementById('lang-menu');
+    if (flagEl) flagEl.textContent = languages[lang].flag;
+    if (flagMobileEl) flagMobileEl.textContent = languages[lang].flag;
+    if (menuEl) menuEl.classList.add('hidden');
+  }
+
+  const langToggle = document.getElementById('lang-toggle');
+  const langToggleMobile = document.getElementById('lang-toggle-mobile');
+  const langMenu = document.getElementById('lang-menu');
+  
+  if (langToggle) {
+    langToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (langMenu) langMenu.classList.toggle('hidden');
+    });
+  }
+
+  if (langToggleMobile) {
+    langToggleMobile.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (langMenu) langMenu.classList.toggle('hidden');
+    });
+  }
+
+  document.querySelectorAll('.lang-option').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const lang = btn.getAttribute('data-lang');
+      if (lang) updateLanguage(lang);
+    });
+  });
+
+  document.addEventListener('click', () => {
+    const menu = document.getElementById('lang-menu');
+    if (menu) menu.classList.add('hidden');
+  });
+
+  // Mobile menu toggle
+  const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+  if (mobileMenuToggle) {
+    mobileMenuToggle.addEventListener('click', () => {
+      const menu = document.getElementById('mobile-menu');
+      const menuIcon = document.getElementById('menu-icon');
+      const closeIcon = document.getElementById('close-icon');
+      
+      if (menu) menu.classList.toggle('hidden');
+      if (menuIcon) menuIcon.classList.toggle('hidden');
+      if (closeIcon) closeIcon.classList.toggle('hidden');
+    });
+  }
+
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      const href = this.getAttribute('href');
+      if (href) {
+        const target = document.querySelector(href);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          const mobileMenu = document.getElementById('mobile-menu');
+          const menuIcon = document.getElementById('menu-icon');
+          const closeIcon = document.getElementById('close-icon');
+          if (mobileMenu) mobileMenu.classList.add('hidden');
+          if (menuIcon) menuIcon.classList.remove('hidden');
+          if (closeIcon) closeIcon.classList.add('hidden');
+        }
+      }
+    });
+  });
+</script>
+

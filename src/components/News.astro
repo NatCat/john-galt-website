@@ -1,0 +1,84 @@
+---
+const newsArticles = [
+  {
+    title: "Next-Generation Automation Solutions Unveiled at Industry Expo",
+    excerpt: "John Galt showcases cutting-edge automation technology for food processing at the annual Industrial Solutions Conference.",
+    date: "October 28, 2025",
+    image: "https://images.unsplash.com/photo-1761195696590-3490ea770aa1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
+    category: "Industry News"
+  },
+  {
+    title: "AI-Powered Robotics Transform Manufacturing Efficiency",
+    excerpt: "Our latest integration of artificial intelligence in robotic systems achieves 40% increase in production throughput.",
+    date: "October 15, 2025",
+    image: "https://images.unsplash.com/photo-1700726783633-23c0c6383b00?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
+    category: "Technology"
+  },
+  {
+    title: "Strategic Partnership Expands Global Component Network",
+    excerpt: "John Galt announces partnership with leading European suppliers to enhance component sourcing capabilities worldwide.",
+    date: "September 30, 2025",
+    image: "https://images.unsplash.com/photo-1748256373165-e4d125c5124f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
+    category: "Company News"
+  }
+];
+---
+
+<section class="py-20 bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <div class="inline-block px-4 py-2 bg-[#2d4a7c]/10 text-[#2d4a7c] rounded-full mb-4">
+        Latest News
+      </div>
+      <h2 class="text-gray-900 mb-4 text-3xl md:text-4xl font-serif">
+        Industry Updates & Insights
+      </h2>
+      <p class="text-gray-600">
+        Stay informed about the latest developments in industrial automation and our company achievements.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+      {newsArticles.map((article) => (
+        <div class="overflow-hidden rounded-xl border hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer group">
+          <div class="relative h-56 overflow-hidden">
+            <img 
+              src={article.image}
+              alt={article.title}
+              class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+              loading="lazy"
+            />
+            <div class="absolute top-4 left-4 bg-[#2d4a7c] text-white px-3 py-1 rounded-full text-sm">
+              {article.category}
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex items-center gap-2 text-sm text-gray-500 mb-3">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+              </svg>
+              <span>{article.date}</span>
+            </div>
+            <h3 class="text-gray-900 mb-3 group-hover:text-[#2d4a7c] transition-colors text-lg font-semibold">
+              {article.title}
+            </h3>
+            <p class="text-sm text-gray-600 mb-4">{article.excerpt}</p>
+            <a href="#" class="text-[#2d4a7c] hover:text-[#1e3a5f] inline-flex items-center gap-2 text-sm">
+              Read More
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div class="text-center">
+      <button class="px-6 py-2 border border-[#2d4a7c] text-[#2d4a7c] rounded-md hover:bg-[#2d4a7c]/5 transition-colors">
+        View All News
+      </button>
+    </div>
+  </div>
+</section>
+

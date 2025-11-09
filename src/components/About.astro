@@ -1,0 +1,83 @@
+---
+const stats = [
+  {
+    value: "50+",
+    label: "Expert Engineers"
+  },
+  {
+    value: "15+",
+    label: "Years Experience"
+  },
+  {
+    value: "25+",
+    label: "Countries Served"
+  },
+  {
+    value: "200+",
+    label: "Completed Projects"
+  }
+];
+
+const capabilities = [
+  "Complete project management from design to implementation",
+  "24/7 technical support and maintenance services",
+  "Custom engineering solutions tailored to your needs",
+  "International component sourcing and logistics",
+  "Compliance with global industry standards",
+  "Training and knowledge transfer programs"
+];
+---
+
+<section id="about" class="py-20 bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid lg:grid-cols-2 gap-12 items-center">
+      <!-- Left Content -->
+      <div>
+        <div class="inline-block px-4 py-2 bg-[#2d4a7c]/10 text-[#2d4a7c] rounded-full mb-4">
+          About Us
+        </div>
+        <h2 class="text-gray-900 mb-6 text-3xl md:text-4xl font-serif">
+          Your Trusted Partner in Industrial Automation
+        </h2>
+        <p class="text-gray-600 mb-6">
+          John Galt is a leading group of organizations specializing in comprehensive industrial 
+          automation solutions. We combine expertise in mechanical engineering, electrical systems, 
+          software development, and international sourcing to deliver turnkey solutions for the food 
+          processing industry.
+        </p>
+        <p class="text-gray-600 mb-8">
+          Our integrated approach ensures seamless project execution from initial design through 
+          commissioning and ongoing support. With deep industry knowledge and commitment to innovation, 
+          we help our clients achieve operational excellence and competitive advantage.
+        </p>
+
+        <div class="space-y-3">
+          {capabilities.map((capability) => (
+            <div class="flex items-start gap-3">
+              <svg class="text-[#2d4a7c] flex-shrink-0 mt-1 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+              <span class="text-gray-700">{capability}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Right Stats -->
+      <div class="grid grid-cols-2 gap-6">
+        {stats.map((stat) => (
+          <div class="text-center p-8 rounded-xl border hover:shadow-lg transition-shadow">
+            <div class="bg-[#2d4a7c]/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg class="text-[#2d4a7c] w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </div>
+            <div class="text-[#2d4a7c] mb-2 text-2xl font-semibold">{stat.value}</div>
+            <div class="text-sm text-gray-600">{stat.label}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+

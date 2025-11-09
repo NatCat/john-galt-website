@@ -1,0 +1,108 @@
+---
+const projects = [
+  {
+    title: "Sorting Flow Systems",
+    category: "Food Processing Automation",
+    description: "Advanced sorting and flow control systems for high-volume food processing facilities",
+    image: "https://images.unsplash.com/photo-1760938580105-3bad290397dd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
+    number: "01"
+  },
+  {
+    title: "Processing Block Automation",
+    category: "Industrial Control Systems",
+    description: "Complete automation of processing blocks with real-time monitoring and control",
+    image: "https://images.unsplash.com/photo-1753272691001-4d68806ac590?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
+    number: "02"
+  },
+  {
+    title: "Coal Column Automation",
+    category: "Process Automation",
+    description: "Automated coal column systems for beverage and food industry applications",
+    image: "https://images.unsplash.com/photo-1759159091728-e2c87b9d9315?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
+    number: "03"
+  },
+  {
+    title: "Ingredient Dosing Systems",
+    category: "Precision Automation",
+    description: "High-precision ingredient dosing and mixing automation solutions",
+    image: "https://images.unsplash.com/photo-1760938580105-3bad290397dd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
+    number: "04"
+  },
+  {
+    title: "Shop HMI & SCADA",
+    category: "Software Development",
+    description: "Custom HMI interfaces and SCADA systems for industrial control and monitoring",
+    image: "https://images.unsplash.com/photo-1753272691001-4d68806ac590?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
+    number: "05"
+  },
+  {
+    title: "Water Treatment Mixers",
+    category: "Industrial Equipment",
+    description: "Automated mixing and preparation systems for industrial water treatment",
+    image: "https://images.unsplash.com/photo-1759159091728-e2c87b9d9315?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
+    number: "06"
+  },
+  {
+    title: "Conveyor Automation",
+    category: "Material Handling",
+    description: "Intelligent conveyor systems for automated material handling and transport",
+    image: "https://images.unsplash.com/photo-1761195696590-3490ea770aa1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
+    number: "07"
+  },
+  {
+    title: "Cabinet Automation",
+    category: "Electrical Systems",
+    description: "Custom electrical cabinets with integrated control and automation systems",
+    image: "https://images.unsplash.com/photo-1563456019560-2b37aa7ad890?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
+    number: "08"
+  },
+  {
+    title: "Pipeline Measurement Systems",
+    category: "Process Control",
+    description: "Advanced measurement and control systems for industrial pipeline operations",
+    image: "https://images.unsplash.com/photo-1759668987649-a2057d0a9f35?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
+    number: "09"
+  }
+];
+---
+
+<section id="portfolio" class="py-20 bg-gray-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <div class="inline-block px-4 py-2 bg-[#2d4a7c]/10 text-[#2d4a7c] rounded-full mb-4">
+        Portfolio
+      </div>
+      <h2 class="text-gray-900 mb-4 text-3xl md:text-4xl font-serif">
+        Our Projects & Solutions
+      </h2>
+      <p class="text-gray-600">
+        Explore our diverse portfolio of successful industrial automation projects across various sectors.
+      </p>
+    </div>
+
+    <!-- Project Grid -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {projects.map((project) => (
+        <div class="overflow-hidden rounded-xl border hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer group">
+          <div class="relative h-48 overflow-hidden">
+            <img 
+              src={project.image}
+              alt={project.title}
+              class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+              loading="lazy"
+            />
+            <div class="absolute top-4 left-4 bg-[#2d4a7c] text-white w-12 h-12 rounded-lg flex items-center justify-center group-hover:bg-[#1e3a5f] transition-colors font-semibold">
+              {project.number}
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="text-sm text-[#2d4a7c] mb-1">{project.category}</div>
+            <h3 class="text-gray-900 mb-2 text-lg font-semibold">{project.title}</h3>
+            <p class="text-sm text-gray-600">{project.description}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
