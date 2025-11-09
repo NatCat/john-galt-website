@@ -1,32 +1,25 @@
-
 backend:
-  name: test-repo
-  branch: master
+  name: github
+  repo: John-Galt-Website             # use user/repo or org/repo here
+  branch: main
 
-local_backend: true
+local_backend: true                   # keep this so npx decap-server still works locally
 
-media_folder: public/images/uploads # Media files will be stored in the repo under public/images/uploads
-public_folder: /images/uploads # The src attribute for uploaded media will begin with /images/uploads
+media_folder: public/images/uploads
+public_folder: /images/uploads
 
 collections:
-  - name: "posts" # Used in routes, e.g., /admin/collections/posts
-    label: "Posts" # Used in the UI
-    folder: "src/content/posts" # The path to the folder where the documents are stored
-    create: true # Allow users to create new documents in this collection
-    slug: "{{slug}}" # Filename template, e.g., YYYY-MM-DD-title.md
+  - name: posts
+    label: "Posts"
+    folder: "src/content/posts"
+    create: true
+    slug: "{{slug}}"
     format: frontmatter
     extension: md
-    fields: # The fields for each document, usually in front matter
-      - {label: "Title", name: "title", widget: "string"}
-      - {label: "Publish Date", name: "pubDate", widget: "datetime"}
-      - {label: "Description", name: "description", widget: "text"}
-      - {label: "Author", name: "author", widget: "string", required: false, default: "Admin"}
-      - {label: "Body", name: "body", widget: "markdown"}
-      - {label: "Featured Image", name: "image", widget: "image", required: false}
-      - {label: "Tags", name: "tags", widget: "list", required: false}
-      - {label: "Draft", name: "draft", widget: "boolean", default: false, required: false}
+    fields:
+      # ... (keep the same fields as before)
 
-  - name: "pages"
+  - name: pages
     label: "Pages"
     folder: "src/content/pages"
     create: true
@@ -34,122 +27,4 @@ collections:
     format: frontmatter
     extension: md
     fields:
-      - {label: "Title", name: "title", widget: "string"}
-      - {label: "Description", name: "description", widget: "text", required: false}
-      - label: "Hero"
-        name: "hero"
-        widget: "object"
-        required: false
-        fields:
-          - {label: "Heading", name: "heading", widget: "text"}
-          - {label: "Subheading", name: "subheading", widget: "text"}
-          - label: "Primary CTA"
-            name: "primaryCta"
-            widget: "object"
-            fields:
-              - {label: "Label", name: "label", widget: "string"}
-              - {label: "URL", name: "url", widget: "string"}
-          - label: "Secondary CTA"
-            name: "secondaryCta"
-            widget: "object"
-            required: false
-            fields:
-              - {label: "Label", name: "label", widget: "string"}
-              - {label: "URL", name: "url", widget: "string"}
-          - label: "Stats"
-            name: "stats"
-            widget: "list"
-            required: false
-            fields:
-              - label: "Icon"
-                name: "icon"
-                widget: "select"
-                options: [Award, CheckCircle, Users, Globe, CheckCircle2]
-              - {label: "Value", name: "value", widget: "string"}
-              - {label: "Label", name: "label", widget: "string"}
-      - label: "Services Intro"
-        name: "servicesIntro"
-        widget: "object"
-        required: false
-        fields:
-          - {label: "Tag", name: "tag", widget: "string", required: false}
-          - {label: "Heading", name: "heading", widget: "string"}
-          - {label: "Description", name: "description", widget: "text", required: false}
-      - label: "Services"
-        name: "services"
-        widget: "list"
-        required: false
-        fields:
-          - label: "Icon"
-            name: "icon"
-            widget: "select"
-            options: [Factory, Zap, Code, Package]
-          - {label: "Title", name: "title", widget: "string"}
-          - {label: "Description", name: "description", widget: "text"}
-          - {label: "Image", name: "image", widget: "image"}
-      - label: "Portfolio Intro"
-        name: "portfolioIntro"
-        widget: "object"
-        required: false
-        fields:
-          - {label: "Tag", name: "tag", widget: "string", required: false}
-          - {label: "Heading", name: "heading", widget: "string"}
-          - {label: "Description", name: "description", widget: "text", required: false}
-      - label: "Portfolio Projects"
-        name: "portfolio"
-        widget: "list"
-        required: false
-        fields:
-          - {label: "Number", name: "number", widget: "string"}
-          - {label: "Title", name: "title", widget: "string"}
-          - {label: "Category", name: "category", widget: "string"}
-          - {label: "Description", name: "description", widget: "text"}
-          - {label: "Image", name: "image", widget: "image"}
-      - label: "About Section"
-        name: "about"
-        widget: "object"
-        required: false
-        fields:
-          - {label: "Tag", name: "tag", widget: "string", required: false}
-          - {label: "Heading", name: "heading", widget: "string"}
-          - label: "Paragraphs"
-            name: "paragraphs"
-            widget: "list"
-            field: {label: "Paragraph", name: "paragraph", widget: "text"}
-          - label: "Capabilities"
-            name: "capabilities"
-            widget: "list"
-            field: {label: "Capability", name: "capability", widget: "string"}
-          - label: "Stats"
-            name: "stats"
-            widget: "list"
-            fields:
-              - label: "Icon"
-                name: "icon"
-                widget: "select"
-                options: [Users, Award, Globe, CheckCircle2]
-              - {label: "Value", name: "value", widget: "string"}
-              - {label: "Label", name: "label", widget: "string"}
-      - label: "Contact Section"
-        name: "contact"
-        widget: "object"
-        required: false
-        fields:
-          - {label: "Tag", name: "tag", widget: "string", required: false}
-          - {label: "Heading", name: "heading", widget: "string"}
-          - {label: "Description", name: "description", widget: "text", required: false}
-          - label: "Info Items"
-            name: "info"
-            widget: "list"
-            fields:
-              - label: "Icon"
-                name: "icon"
-                widget: "select"
-                options: [Phone, Mail, MapPin]
-              - {label: "Title", name: "title", widget: "string"}
-              - label: "Lines"
-                name: "lines"
-                widget: "list"
-                field: {label: "Line", name: "line", widget: "string"}
-          - {label: "Submit Button Label", name: "submitLabel", widget: "string", default: "Send Message", required: false}
-      - {label: "Draft", name: "draft", widget: "boolean", default: false, required: false}
+      # ... (the structured fields we added for hero/services/portfolio/etc.)
