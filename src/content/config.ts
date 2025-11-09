@@ -18,6 +18,14 @@ const serviceIcons = ['Factory', 'Zap', 'Code', 'Package'] as const;
 const aboutStatIcons = ['Users', 'Award', 'Globe', 'CheckCircle2'] as const;
 const contactIcons = ['Phone', 'Mail', 'MapPin'] as const;
 
+const sectionIntroSchema = z
+  .object({
+    tag: z.string().optional(),
+    heading: z.string(),
+    description: z.string().optional(),
+  })
+  .optional();
+
 const heroSchema = z.object({
   heading: z.string(),
   subheading: z.string(),
@@ -103,7 +111,9 @@ const pagesCollection = defineCollection({
     title: z.string(),
     description: z.string().optional(),
     hero: heroSchema.optional(),
+    servicesIntro: sectionIntroSchema,
     services: servicesSchema,
+    portfolioIntro: sectionIntroSchema,
     portfolio: portfolioSchema,
     about: aboutSchema,
     contact: contactSchema,

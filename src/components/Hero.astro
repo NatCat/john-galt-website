@@ -1,4 +1,44 @@
 ---
+const defaultHero = {
+  heading: 'Innovative Solutions<br />for a Sustainable Future',
+  subheading: 'Exploring innovative solutions for sustainable technology and industrial automation.',
+  primaryCta: {
+    label: 'Explore Services',
+    url: '#services',
+  },
+  secondaryCta: {
+    label: 'Get in Touch',
+    url: '#contact',
+  },
+  stats: [
+    { icon: 'Award', value: '15+ Years', label: 'Experience' },
+    { icon: 'CheckCircle', value: '200+', label: 'Projects' },
+    { icon: 'Users', value: '98%', label: 'Satisfaction' },
+  ],
+};
+
+const iconPaths: Record<string, string> = {
+  Award: 'M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z',
+  CheckCircle: 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z',
+  Users: 'M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z',
+  Globe: 'M21 12a9 9 0 11-18 0 9 9 0 0118 0z M3.6 9h16.8 M3.6 15h16.8 M9 3.6a15.3 15.3 0 010 16.8 M15 3.6a15.3 15.3 0 010 16.8',
+  CheckCircle2: 'M9 12.75l2.25 2.25 4.5-4.5m6 2.25A9 9 0 118 4.5a9 9 0 0118 9z',
+};
+
+const incoming = Astro.props.data ?? {};
+const hero = {
+  heading: incoming.heading ?? defaultHero.heading,
+  subheading: incoming.subheading ?? defaultHero.subheading,
+  primaryCta: {
+    ...defaultHero.primaryCta,
+    ...(incoming.primaryCta ?? {}),
+  },
+  secondaryCta: incoming.secondaryCta ? { ...defaultHero.secondaryCta, ...incoming.secondaryCta } : defaultHero.secondaryCta,
+  stats: (incoming.stats && incoming.stats.length > 0 ? incoming.stats : defaultHero.stats).map((stat, index) => ({
+    ...defaultHero.stats[index % defaultHero.stats.length],
+    ...stat,
+  })),
+};
 ---
 
 <section id="home" class="pt-16 relative overflow-hidden">
@@ -40,55 +80,42 @@
   <div class="max-w-7xl mx-auto relative z-10">
     <div class="min-h-[calc(100vh-4rem)] flex items-center justify-center text-center px-4 sm:px-6 lg:px-8 py-16">
       <div class="w-full max-w-4xl">
-        <h1 class="text-white mb-6 text-5xl md:text-6xl lg:text-7xl font-serif">
-          Innovative Solutions<br />for a Sustainable Future
-        </h1>
+        <h1 class="text-white mb-6 text-5xl md:text-6xl lg:text-7xl font-serif" set:html={hero.heading} />
         
         <p class="text-white/90 mb-12 text-lg md:text-xl max-w-2xl mx-auto">
-          Exploring innovative solutions for sustainable technology and industrial automation.
+          {hero.subheading}
         </p>
         
         <div class="flex flex-wrap gap-4 justify-center mb-12">
-          <a href="#services" class="px-6 py-3 bg-[#1e3a5f] hover:bg-[#2d4a7c] text-white rounded-md transition-colors inline-flex items-center gap-2">
-            Explore Services
+          <a href={hero.primaryCta.url} class="px-6 py-3 bg-[#1e3a5f] hover:bg-[#2d4a7c] text-white rounded-md transition-colors inline-flex items-center gap-2">
+            {hero.primaryCta.label}
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
             </svg>
           </a>
-          <a href="#contact" class="px-6 py-3 border border-white text-white rounded-md hover:bg-white/10 transition-colors">
-            Get in Touch
-          </a>
+          {hero.secondaryCta && (
+            <a href={hero.secondaryCta.url} class="px-6 py-3 border border-white text-white rounded-md hover:bg-white/10 transition-colors">
+              {hero.secondaryCta.label}
+            </a>
+          )}
         </div>
 
         <!-- Statistics -->
-        <div class="grid grid-cols-3 gap-8 pt-8 border-t border-white/30">
-          <div>
-            <div class="flex items-center justify-center gap-2 mb-2">
-              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
-              </svg>
-            </div>
-            <div class="text-white mb-1 text-xl font-semibold">15+ Years</div>
-            <div class="text-sm text-white/80">Experience</div>
-          </div>
-          <div>
-            <div class="flex items-center justify-center gap-2 mb-2">
-              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-              </svg>
-            </div>
-            <div class="text-white mb-1 text-xl font-semibold">200+</div>
-            <div class="text-sm text-white/80">Projects</div>
-          </div>
-          <div>
-            <div class="flex items-center justify-center gap-2 mb-2">
-              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
-              </svg>
-            </div>
-            <div class="text-white mb-1 text-xl font-semibold">98%</div>
-            <div class="text-sm text-white/80">Satisfaction</div>
-          </div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 pt-8 border-t border-white/30">
+          {hero.stats.map((stat, index) => {
+            const path = iconPaths[stat.icon] ?? iconPaths[defaultHero.stats[index % defaultHero.stats.length].icon];
+            return (
+              <div>
+                <div class="flex items-center justify-center gap-2 mb-2">
+                  <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={path}></path>
+                  </svg>
+                </div>
+                <div class="text-white mb-1 text-xl font-semibold">{stat.value}</div>
+                <div class="text-sm text-white/80">{stat.label}</div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>

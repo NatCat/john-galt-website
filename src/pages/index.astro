@@ -8,6 +8,11 @@ import News from "../components/News.astro";
 import Contact from "../components/Contact.astro";
 import Footer from "../components/Footer.astro";
 import "../styles/tailwind.css";
+import { getEntryBySlug } from "astro:content";
+
+const homeEntry = await getEntryBySlug('pages', 'home');
+const homeData = homeEntry?.data ?? {};
+const metaDescription = homeData.description ?? 'John Galt - Innovative solutions for sustainable technology and industrial automation';
 ---
 
 <html lang="en">
@@ -16,19 +21,19 @@ import "../styles/tailwind.css";
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
-    <meta name="description" content="John Galt - Innovative solutions for sustainable technology and industrial automation" />
-    <title>John Galt - Industrial Automation Solutions</title>
+    <meta name="description" content={metaDescription} />
+    <title>{homeData.title ?? 'John Galt - Industrial Automation Solutions'}</title>
   </head>
   <body class="min-h-screen bg-white">
     <Header />
     <main>
-      <Hero />
-      <Services />
-      <Portfolio />
-      <About />
+      <Hero data={homeData.hero} />
+      <Services intro={homeData.servicesIntro} items={homeData.services} />
+      <Portfolio intro={homeData.portfolioIntro} projects={homeData.portfolio} />
+      <About data={homeData.about} />
       <News />
-      <Contact />
+      <Contact data={homeData.contact} />
     </main>
-    <Footer />
+    <Footer contact={homeData.contact} services={homeData.services} />
   </body>
 </html>

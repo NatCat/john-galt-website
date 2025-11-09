@@ -19,6 +19,10 @@ hero:
     - icon: Users
       value: "98%"
       label: "Satisfaction"
+servicesIntro:
+  tag: "Our Services"
+  heading: "Comprehensive Industrial Solutions"
+  description: "We provide end-to-end solutions for industrial automation, combining cutting-edge technology with decades of expertise in the food processing industry."
 services:
   - icon: Factory
     title: "Industrial Automation Systems"
@@ -36,6 +40,10 @@ services:
     title: "Component Sourcing & Import"
     description: "Reliable sourcing and importing of high-quality technological components and equipment for industrial applications."
     image: "https://images.unsplash.com/photo-1759159091682-3b98f4759367?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080"
+portfolioIntro:
+  tag: "Portfolio"
+  heading: "Our Projects & Solutions"
+  description: "Explore our diverse portfolio of successful industrial automation projects across various sectors."
 portfolio:
   - number: "01"
     title: "Sorting Flow Systems"
