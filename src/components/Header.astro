@@ -1,4 +1,12 @@
 ---
+import { languages, getTranslation, getLocalizedPath, type Locale } from '../lib/translations';
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = 'en' } = Astro.props;
+const currentLang = languages[locale];
 const logoSrc = `${import.meta.env.BASE_URL}logo.png`;
 ---
 
@@ -7,7 +15,9 @@ const logoSrc = `${import.meta.env.BASE_URL}logo.png`;
     <div class="flex justify-between items-center py-4">
       <!-- Logo -->
       <div class="flex items-center gap-3">
-        <img src={logoSrc} alt="John Galt" class="h-16 w-auto" onerror="this.style.display='none'" />
+        <a href={getLocalizedPath(locale)}>
+          <img src={logoSrc} alt="John Galt" class="h-16 w-auto" onerror="this.style.display='none'" />
+        </a>
         <div>
           <div class="text-[#2d4a7c] font-semibold text-lg">John Galt</div>
           <div class="text-sm text-gray-600">Industrial Solutions</div>
@@ -16,14 +26,14 @@ const logoSrc = `${import.meta.env.BASE_URL}logo.png`;
 
       <!-- Desktop Navigation -->
       <nav class="hidden lg:flex items-center gap-6">
-        <a href="#home" class="text-gray-700 hover:text-[#2d4a7c] transition-colors">Home</a>
-        <a href="#about" class="text-gray-700 hover:text-[#2d4a7c] transition-colors">About</a>
-        <a href="#services" class="text-gray-700 hover:text-[#2d4a7c] transition-colors">Solutions</a>
-        <a href="#equipment" class="text-gray-700 hover:text-[#2d4a7c] transition-colors">Equipment</a>
-        <a href="#portfolio" class="text-gray-700 hover:text-[#2d4a7c] transition-colors">Portfolio</a>
-        <a href="#representatives" class="text-gray-700 hover:text-[#2d4a7c] transition-colors">Representatives</a>
-        <a href="#papers" class="text-gray-700 hover:text-[#2d4a7c] transition-colors">Papers</a>
-        <a href="#support" class="text-gray-700 hover:text-[#2d4a7c] transition-colors">Support</a>
+        <a href="#home" class="text-gray-700 hover:text-[#2d4a7c] transition-colors">{getTranslation(locale, 'home')}</a>
+        <a href="#about" class="text-gray-700 hover:text-[#2d4a7c] transition-colors">{getTranslation(locale, 'about')}</a>
+        <a href="#services" class="text-gray-700 hover:text-[#2d4a7c] transition-colors">{getTranslation(locale, 'solutions')}</a>
+        <a href="#equipment" class="text-gray-700 hover:text-[#2d4a7c] transition-colors">{getTranslation(locale, 'equipment')}</a>
+        <a href="#portfolio" class="text-gray-700 hover:text-[#2d4a7c] transition-colors">{getTranslation(locale, 'portfolio')}</a>
+        <a href="#representatives" class="text-gray-700 hover:text-[#2d4a7c] transition-colors">{getTranslation(locale, 'representatives')}</a>
+        <a href="#papers" class="text-gray-700 hover:text-[#2d4a7c] transition-colors">{getTranslation(locale, 'papers')}</a>
+        <a href="#support" class="text-gray-700 hover:text-[#2d4a7c] transition-colors">{getTranslation(locale, 'support')}</a>
         
         <!-- Language Switcher -->
         <div class="relative group">
@@ -31,23 +41,26 @@ const logoSrc = `${import.meta.env.BASE_URL}logo.png`;
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
             </svg>
-            <span class="text-sm" id="lang-flag">🇺🇸</span>
+            <span class="text-sm" id="lang-flag">{currentLang.flag}</span>
           </button>
-          <div id="lang-menu" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg border border-gray-200 py-1">
-            <button class="lang-option w-full text-left px-4 py-2 text-sm hover:bg-gray-100 flex items-center justify-between" data-lang="en">
-              <span class="flex items-center gap-2"><span>🇺🇸</span><span>English</span></span>
-            </button>
-            <button class="lang-option w-full text-left px-4 py-2 text-sm hover:bg-gray-100 flex items-center justify-between" data-lang="ru">
-              <span class="flex items-center gap-2"><span>🇷🇺</span><span>Русский</span></span>
-            </button>
-            <button class="lang-option w-full text-left px-4 py-2 text-sm hover:bg-gray-100 flex items-center justify-between" data-lang="de">
-              <span class="flex items-center gap-2"><span>🇩🇪</span><span>Deutsch</span></span>
-            </button>
+          <div id="lang-menu" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg border border-gray-200 py-1 z-50">
+            {Object.entries(languages).map(([langCode, lang]) => (
+              <a 
+                href={getLocalizedPath(langCode as Locale)} 
+                class="lang-option w-full text-left px-4 py-2 text-sm hover:bg-gray-100 flex items-center justify-between block"
+                data-lang={langCode}
+              >
+                <span class="flex items-center gap-2">
+                  <span>{lang.flag}</span>
+                  <span>{lang.nativeName}</span>
+                </span>
+              </a>
+            ))}
           </div>
         </div>
 
         <a href="#contact" class="px-4 py-2 bg-[#2d4a7c] text-white rounded-md hover:bg-[#1e3a5f] transition-colors">
-          Contacts
+          {getTranslation(locale, 'contacts')}
         </a>
       </nav>
 
@@ -57,7 +70,7 @@ const logoSrc = `${import.meta.env.BASE_URL}logo.png`;
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
           </svg>
-          <span class="text-sm" id="lang-flag-mobile">🇺🇸</span>
+          <span class="text-sm" id="lang-flag-mobile">{currentLang.flag}</span>
         </button>
         
         <button id="mobile-menu-toggle" class="p-2 text-gray-700 hover:text-[#2d4a7c]">
@@ -74,71 +87,37 @@ const logoSrc = `${import.meta.env.BASE_URL}logo.png`;
     <!-- Mobile Navigation -->
     <nav id="mobile-menu" class="hidden lg:hidden py-4 border-t">
       <div class="flex flex-col gap-4">
-        <a href="#home" class="text-left text-gray-700 hover:text-[#2d4a7c] transition-colors">Home</a>
-        <a href="#about" class="text-left text-gray-700 hover:text-[#2d4a7c] transition-colors">About</a>
-        <a href="#services" class="text-left text-gray-700 hover:text-[#2d4a7c] transition-colors">Solutions</a>
-        <a href="#equipment" class="text-left text-gray-700 hover:text-[#2d4a7c] transition-colors">Equipment</a>
-        <a href="#portfolio" class="text-left text-gray-700 hover:text-[#2d4a7c] transition-colors">Portfolio</a>
-        <a href="#representatives" class="text-left text-gray-700 hover:text-[#2d4a7c] transition-colors">Representatives</a>
-        <a href="#papers" class="text-left text-gray-700 hover:text-[#2d4a7c] transition-colors">Papers</a>
-        <a href="#support" class="text-left text-gray-700 hover:text-[#2d4a7c] transition-colors">Support</a>
+        <a href="#home" class="text-left text-gray-700 hover:text-[#2d4a7c] transition-colors">{getTranslation(locale, 'home')}</a>
+        <a href="#about" class="text-left text-gray-700 hover:text-[#2d4a7c] transition-colors">{getTranslation(locale, 'about')}</a>
+        <a href="#services" class="text-left text-gray-700 hover:text-[#2d4a7c] transition-colors">{getTranslation(locale, 'solutions')}</a>
+        <a href="#equipment" class="text-left text-gray-700 hover:text-[#2d4a7c] transition-colors">{getTranslation(locale, 'equipment')}</a>
+        <a href="#portfolio" class="text-left text-gray-700 hover:text-[#2d4a7c] transition-colors">{getTranslation(locale, 'portfolio')}</a>
+        <a href="#representatives" class="text-left text-gray-700 hover:text-[#2d4a7c] transition-colors">{getTranslation(locale, 'representatives')}</a>
+        <a href="#papers" class="text-left text-gray-700 hover:text-[#2d4a7c] transition-colors">{getTranslation(locale, 'papers')}</a>
+        <a href="#support" class="text-left text-gray-700 hover:text-[#2d4a7c] transition-colors">{getTranslation(locale, 'support')}</a>
         <a href="#contact" class="w-full px-4 py-2 bg-[#2d4a7c] text-white rounded-md hover:bg-[#1e3a5f] text-center">
-          Contacts
+          {getTranslation(locale, 'contacts')}
         </a>
+      </div>
+      <!-- Mobile Language Switcher -->
+      <div class="mt-4 pt-4 border-t">
+        <div class="flex flex-col gap-2">
+          {Object.entries(languages).map(([langCode, lang]) => (
+            <a 
+              href={getLocalizedPath(langCode as Locale)} 
+              class="text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md flex items-center gap-2"
+            >
+              <span>{lang.flag}</span>
+              <span>{lang.nativeName}</span>
+            </a>
+          ))}
+        </div>
       </div>
     </nav>
   </div>
 </header>
 
 <script>
-  // Language switcher
-  let currentLang = 'en';
-  const languages = {
-    en: { flag: '🇺🇸', name: 'English' },
-    ru: { flag: '🇷🇺', name: 'Русский' },
-    de: { flag: '🇩🇪', name: 'Deutsch' }
-  };
-
-  function updateLanguage(lang) {
-    currentLang = lang;
-    const flagEl = document.getElementById('lang-flag');
-    const flagMobileEl = document.getElementById('lang-flag-mobile');
-    const menuEl = document.getElementById('lang-menu');
-    if (flagEl) flagEl.textContent = languages[lang].flag;
-    if (flagMobileEl) flagMobileEl.textContent = languages[lang].flag;
-    if (menuEl) menuEl.classList.add('hidden');
-  }
-
-  const langToggle = document.getElementById('lang-toggle');
-  const langToggleMobile = document.getElementById('lang-toggle-mobile');
-  const langMenu = document.getElementById('lang-menu');
-  
-  if (langToggle) {
-    langToggle.addEventListener('click', (e) => {
-      e.stopPropagation();
-      if (langMenu) langMenu.classList.toggle('hidden');
-    });
-  }
-
-  if (langToggleMobile) {
-    langToggleMobile.addEventListener('click', (e) => {
-      e.stopPropagation();
-      if (langMenu) langMenu.classList.toggle('hidden');
-    });
-  }
-
-  document.querySelectorAll('.lang-option').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const lang = btn.getAttribute('data-lang');
-      if (lang) updateLanguage(lang);
-    });
-  });
-
-  document.addEventListener('click', () => {
-    const menu = document.getElementById('lang-menu');
-    if (menu) menu.classList.add('hidden');
-  });
-
   // Mobile menu toggle
   const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
   if (mobileMenuToggle) {
@@ -150,6 +129,23 @@ const logoSrc = `${import.meta.env.BASE_URL}logo.png`;
       if (menu) menu.classList.toggle('hidden');
       if (menuIcon) menuIcon.classList.toggle('hidden');
       if (closeIcon) closeIcon.classList.toggle('hidden');
+    });
+  }
+
+  // Language menu toggle (desktop)
+  const langToggle = document.getElementById('lang-toggle');
+  const langMenu = document.getElementById('lang-menu');
+  
+  if (langToggle && langMenu) {
+    langToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      langMenu.classList.toggle('hidden');
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!langToggle.contains(e.target as Node) && !langMenu.contains(e.target as Node)) {
+        langMenu.classList.add('hidden');
+      }
     });
   }
 
@@ -173,4 +169,3 @@ const logoSrc = `${import.meta.env.BASE_URL}logo.png`;
     });
   });
 </script>
-

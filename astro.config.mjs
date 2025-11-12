@@ -2,10 +2,21 @@
 import { defineConfig } from 'astro/config';
 import path from 'path';
 
-// replace <user> and <repo> with your GitHub info
+// Only use base path in production (for GitHub Pages)
+// In development, use root path for cleaner URLs
+const isProduction = process.env.NODE_ENV === 'production' || process.env.CI === 'true';
+
 export default defineConfig({
-  site: 'https://NatCat.github.io/john-galt-website',    // omit base if this is a user/organization site
-  base: '/john-galt-website/',
+  site: 'https://NatCat.github.io/john-galt-website',
+  base: isProduction ? '/john-galt-website/' : '/',
+
+  i18n: {
+    defaultLocale: 'en',
+    locales: ['en', 'ru', 'sr', 'hy', 'fr'],
+    routing: {
+      prefixDefaultLocale: false, // English at root (/)
+    },
+  },
 
   vite: {
     resolve: {
