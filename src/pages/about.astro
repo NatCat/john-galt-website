@@ -1,0 +1,172 @@
+---
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import "../styles/tailwind.css";
+import { getLocaleFromUrl, getPageBySlugAndLocale } from "../lib/i18n";
+import { getTranslation } from "../lib/translations";
+
+const locale = getLocaleFromUrl(Astro.url);
+const aboutEntry = await getPageBySlugAndLocale('pages', 'about', locale);
+const aboutPageData = aboutEntry?.data ?? {};
+const aboutData = aboutPageData.about ?? {};
+const historyData = aboutPageData.history ?? {};
+
+// Fallback to home page about data if about page doesn't exist
+const homeEntry = await getPageBySlugAndLocale('pages', 'home', locale).catch(() => null);
+const homeData = homeEntry?.data ?? {};
+const fallbackAboutData = homeData.about ?? {};
+
+const defaultAbout = {
+  tag: 'About Us',
+  heading: 'Partner Group "John Galt"',
+  paragraphs: [
+    'Our group unites several organizations and teams engaged in the production of technological equipment and industrial automation systems for the food industry, welding and electrical installation services, real-time software development, as well as sourcing and importing technological components.',
+    'As a group of companies and technical crews operating across multiple countries, we work with a wide range of clients — from large vertically integrated industrial corporations to individual customers with specific technical needs. Our contactable technical representatives are located in regions including the Balkans, the South Caucasus and Iran, China, India, and CIS countries.',
+  ],
+  capabilities: [
+    'Manufacturing of mixing and filtration equipment for the alcoholic beverage industry (including the continuous blending and treatment technology known as "Ruchey"), as well as the development of comprehensive solutions for vodka and spirits production lines using both traditional and simplified methods;',
+    'Production, maintenance, and servicing of proprietary and third-party industrial and municipal water purification systems based on reverse osmosis, microfiltration, and ion exchange technologies — including for food and pharmaceutical enterprises, boiler rooms, and water intake stations;',
+    'Supply and maintenance of low-capacity water treatment systems for small and medium-sized businesses (restaurants, hotels, private homes), as well as for residential infrastructure;',
+    'Technological installation and commissioning services at enterprises with continuous production cycles (e.g. food, alcohol, chemical, and fuel industries), particularly where stainless-steel tank and piping systems are used;',
+    'Custom and small-batch production of low-voltage and power control cabinet equipment — based on schematic documentation, technical specifications, or open client requirements. This includes component supply, cabinet software development (softlogic, microSCADA), and preparation of technical documentation;',
+    'Installation of distributed soil, hydrological, and meteorological monitoring stations for agriculture, aquaculture, and municipal applications;',
+    'Supply of components and ready-to-use modules for scalable energy storage systems (e.g. redox systems);',
+    'Development of bespoke software for automated process control and operational/production management systems (SCADA, MRPI, MRPII).',
+  ],
+  stats: [],
+};
+
+const about = {
+  ...defaultAbout,
+  ...fallbackAboutData,
+  ...aboutData,
+  paragraphs: aboutData.paragraphs && aboutData.paragraphs.length > 0 ? aboutData.paragraphs : (fallbackAboutData.paragraphs && fallbackAboutData.paragraphs.length > 0 ? fallbackAboutData.paragraphs : defaultAbout.paragraphs),
+  capabilities: aboutData.capabilities && aboutData.capabilities.length > 0 ? aboutData.capabilities : (fallbackAboutData.capabilities && fallbackAboutData.capabilities.length > 0 ? fallbackAboutData.capabilities : defaultAbout.capabilities),
+};
+---
+
+<html lang={locale}>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={aboutPageData.description || 'Learn more about John Galt - Your trusted partner in industrial automation solutions'} />
+    <title>{aboutPageData.title || about.heading} - John Galt</title>
+  </head>
+  <body class="min-h-screen bg-white">
+    <Header locale={locale} />
+    <main class="pt-20">
+      <!-- Hero Section -->
+      <section class="bg-gradient-to-b from-[#2d4a7c]/5 to-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="text-center max-w-3xl mx-auto">
+            {about.tag && (
+              <div class="inline-block px-4 py-2 bg-[#2d4a7c]/10 text-[#2d4a7c] rounded-full mb-4">
+                {about.tag}
+              </div>
+            )}
+            <h1 class="text-4xl md:text-5xl font-serif text-gray-900 mb-6">
+              {about.heading}
+            </h1>
+          </div>
+        </div>
+      </section>
+
+      <!-- Main Content -->
+      <section class="py-20 bg-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="prose prose-lg max-w-none">
+            {about.paragraphs.length > 0 && (
+              <p class="text-gray-600 mb-6 text-lg leading-relaxed">{about.paragraphs[0]}</p>
+            )}
+          </div>
+
+          {about.capabilities && about.capabilities.length > 0 && (
+            <div class="mt-8">
+              <h3 class="text-2xl font-serif text-gray-900 mb-6">We operate in the following areas:</h3>
+              <div class="space-y-4">
+                {about.capabilities.map((capability) => (
+                  <div class="flex items-start gap-3">
+                    <svg class="text-[#2d4a7c] flex-shrink-0 mt-1 w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <span class="text-gray-700 text-lg">{capability}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {about.paragraphs.length > 1 && (
+            <div class="prose prose-lg max-w-none mt-8">
+              <p class="text-gray-600 mb-6 text-lg leading-relaxed">{about.paragraphs[1]}</p>
+            </div>
+          )}
+        </div>
+      </section>
+
+      <!-- History Section -->
+      {historyData.heading && (
+        <section class="py-20 bg-gray-50">
+          <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl md:text-4xl font-serif text-gray-900 mb-12">
+              {historyData.heading}
+            </h2>
+            
+            {/* Subsections with subtitles */}
+            {historyData.subsections && historyData.subsections.length > 0 ? (
+              <div class="space-y-12">
+                {historyData.subsections.map((subsection) => (
+                  <div>
+                    {subsection.subtitle && (
+                      <h3 class="text-2xl font-serif text-gray-900 mb-6">
+                        {subsection.subtitle}
+                      </h3>
+                    )}
+                    {subsection.paragraphs && subsection.paragraphs.length > 0 && (
+                      <div class="prose prose-lg max-w-none">
+                        {subsection.paragraphs.map((paragraph) => (
+                          <p class="text-gray-600 mb-6 text-lg leading-relaxed">{paragraph}</p>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            ) : (
+              /* Fallback: Simple paragraphs without subsections */
+              historyData.paragraphs && historyData.paragraphs.length > 0 && (
+                <div class="prose prose-lg max-w-none">
+                  {historyData.paragraphs.map((paragraph) => (
+                    <p class="text-gray-600 mb-6 text-lg leading-relaxed">{paragraph}</p>
+                  ))}
+                </div>
+              )
+            )}
+          </div>
+        </section>
+      )}
+
+      <!-- Call to Action -->
+      <section class="py-16 bg-[#2d4a7c]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 class="text-3xl md:text-4xl font-serif text-white mb-4">
+            Ready to Transform Your Operations?
+          </h2>
+          <p class="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+            Let's discuss how our industrial automation solutions can help your business achieve greater efficiency and productivity.
+          </p>
+          <a
+            href="#contact"
+            class="inline-block px-8 py-3 bg-white text-[#2d4a7c] rounded-md hover:bg-gray-100 transition-colors font-semibold"
+          >
+            {getTranslation(locale, 'contacts')}
+          </a>
+        </div>
+      </section>
+    </main>
+    <Footer contact={homeData?.contact} services={homeData?.services} locale={locale} />
+  </body>
+</html>
+

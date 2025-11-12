@@ -105,9 +105,38 @@ const contactSchema = z
   })
   .optional();
 
+const historySchema = z
+  .object({
+    heading: z.string(),
+    subsections: z
+      .array(
+        z.object({
+          subtitle: z.string(),
+          paragraphs: z.array(z.string()),
+        }),
+      )
+      .optional(),
+    paragraphs: z.array(z.string()).optional(), // Fallback for simple paragraphs without subsections
+  })
+  .optional();
+
+const solutionSectionSchema = z.object({
+  heading: z.string(),
+  image: z.string().optional(),
+  items: z.array(z.string()),
+});
+
+const solutionsSchema = z
+  .object({
+    intro: sectionIntroSchema,
+    sections: z.array(solutionSectionSchema).optional(),
+  })
+  .optional();
+
 const pagesCollection = defineCollection({
   type: 'content',
   schema: z.object({
+    lang: z.enum(['en', 'ru', 'sr', 'hy', 'fr']).default('en'),
     title: z.string(),
     description: z.string().optional(),
     hero: heroSchema.optional(),
@@ -116,6 +145,8 @@ const pagesCollection = defineCollection({
     portfolioIntro: sectionIntroSchema,
     portfolio: portfolioSchema,
     about: aboutSchema,
+    history: historySchema,
+    solutions: solutionsSchema,
     contact: contactSchema,
     draft: z.boolean().optional().default(false),
   }),

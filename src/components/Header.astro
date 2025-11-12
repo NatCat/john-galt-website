@@ -26,14 +26,14 @@ const logoSrc = `${import.meta.env.BASE_URL}logo.png`;
 
       <!-- Desktop Navigation -->
       <nav class="hidden lg:flex items-center gap-6">
-        <a href="#home" class="text-gray-700 hover:text-[#2d4a7c] transition-colors">{getTranslation(locale, 'home')}</a>
-        <a href="#about" class="text-gray-700 hover:text-[#2d4a7c] transition-colors">{getTranslation(locale, 'about')}</a>
-        <a href="#services" class="text-gray-700 hover:text-[#2d4a7c] transition-colors">{getTranslation(locale, 'solutions')}</a>
-        <a href="#equipment" class="text-gray-700 hover:text-[#2d4a7c] transition-colors">{getTranslation(locale, 'equipment')}</a>
-        <a href="#portfolio" class="text-gray-700 hover:text-[#2d4a7c] transition-colors">{getTranslation(locale, 'portfolio')}</a>
-        <a href="#representatives" class="text-gray-700 hover:text-[#2d4a7c] transition-colors">{getTranslation(locale, 'representatives')}</a>
-        <a href="#papers" class="text-gray-700 hover:text-[#2d4a7c] transition-colors">{getTranslation(locale, 'papers')}</a>
-        <a href="#support" class="text-gray-700 hover:text-[#2d4a7c] transition-colors">{getTranslation(locale, 'support')}</a>
+        <a href={getLocalizedPath(locale)} class="text-gray-700 hover:text-[#2d4a7c] transition-colors">{getTranslation(locale, 'home')}</a>
+        <a href={getLocalizedPath(locale, 'about')} class="text-gray-700 hover:text-[#2d4a7c] transition-colors">{getTranslation(locale, 'about')}</a>
+        <a href={getLocalizedPath(locale, 'solutions')} class="text-gray-700 hover:text-[#2d4a7c] transition-colors">{getTranslation(locale, 'solutions')}</a>
+        <a href={getLocalizedPath(locale, 'equipment')} class="text-gray-700 hover:text-[#2d4a7c] transition-colors">{getTranslation(locale, 'equipment')}</a>
+        <a href={getLocalizedPath(locale, 'portfolio')} class="text-gray-700 hover:text-[#2d4a7c] transition-colors">{getTranslation(locale, 'portfolio')}</a>
+        <a href={getLocalizedPath(locale, 'representatives')} class="text-gray-700 hover:text-[#2d4a7c] transition-colors">{getTranslation(locale, 'representatives')}</a>
+        <a href={getLocalizedPath(locale, 'papers')} class="text-gray-700 hover:text-[#2d4a7c] transition-colors">{getTranslation(locale, 'papers')}</a>
+        <a href={getLocalizedPath(locale, 'support')} class="text-gray-700 hover:text-[#2d4a7c] transition-colors">{getTranslation(locale, 'support')}</a>
         
         <!-- Language Switcher -->
         <div class="relative group">
@@ -87,15 +87,15 @@ const logoSrc = `${import.meta.env.BASE_URL}logo.png`;
     <!-- Mobile Navigation -->
     <nav id="mobile-menu" class="hidden lg:hidden py-4 border-t">
       <div class="flex flex-col gap-4">
-        <a href="#home" class="text-left text-gray-700 hover:text-[#2d4a7c] transition-colors">{getTranslation(locale, 'home')}</a>
-        <a href="#about" class="text-left text-gray-700 hover:text-[#2d4a7c] transition-colors">{getTranslation(locale, 'about')}</a>
-        <a href="#services" class="text-left text-gray-700 hover:text-[#2d4a7c] transition-colors">{getTranslation(locale, 'solutions')}</a>
-        <a href="#equipment" class="text-left text-gray-700 hover:text-[#2d4a7c] transition-colors">{getTranslation(locale, 'equipment')}</a>
-        <a href="#portfolio" class="text-left text-gray-700 hover:text-[#2d4a7c] transition-colors">{getTranslation(locale, 'portfolio')}</a>
-        <a href="#representatives" class="text-left text-gray-700 hover:text-[#2d4a7c] transition-colors">{getTranslation(locale, 'representatives')}</a>
-        <a href="#papers" class="text-left text-gray-700 hover:text-[#2d4a7c] transition-colors">{getTranslation(locale, 'papers')}</a>
-        <a href="#support" class="text-left text-gray-700 hover:text-[#2d4a7c] transition-colors">{getTranslation(locale, 'support')}</a>
-        <a href="#contact" class="w-full px-4 py-2 bg-[#2d4a7c] text-white rounded-md hover:bg-[#1e3a5f] text-center">
+        <a href={getLocalizedPath(locale)} class="text-left text-gray-700 hover:text-[#2d4a7c] transition-colors">{getTranslation(locale, 'home')}</a>
+        <a href={getLocalizedPath(locale, 'about')} class="text-left text-gray-700 hover:text-[#2d4a7c] transition-colors">{getTranslation(locale, 'about')}</a>
+        <a href={getLocalizedPath(locale, 'solutions')} class="text-left text-gray-700 hover:text-[#2d4a7c] transition-colors">{getTranslation(locale, 'solutions')}</a>
+        <a href={getLocalizedPath(locale, 'equipment')} class="text-left text-gray-700 hover:text-[#2d4a7c] transition-colors">{getTranslation(locale, 'equipment')}</a>
+        <a href={getLocalizedPath(locale, 'portfolio')} class="text-left text-gray-700 hover:text-[#2d4a7c] transition-colors">{getTranslation(locale, 'portfolio')}</a>
+        <a href={getLocalizedPath(locale, 'representatives')} class="text-left text-gray-700 hover:text-[#2d4a7c] transition-colors">{getTranslation(locale, 'representatives')}</a>
+        <a href={getLocalizedPath(locale, 'papers')} class="text-left text-gray-700 hover:text-[#2d4a7c] transition-colors">{getTranslation(locale, 'papers')}</a>
+        <a href={getLocalizedPath(locale, 'support')} class="text-left text-gray-700 hover:text-[#2d4a7c] transition-colors">{getTranslation(locale, 'support')}</a>
+        <a href={`${getLocalizedPath(locale)}#contact`} class="w-full px-4 py-2 bg-[#2d4a7c] text-white rounded-md hover:bg-[#1e3a5f] text-center">
           {getTranslation(locale, 'contacts')}
         </a>
       </div>

@@ -1,18 +1,28 @@
 ---
+import { getLocalizedPath, type Locale } from '../lib/translations';
+
+interface Props {
+  data?: any;
+  locale?: Locale;
+}
+
+const { locale = 'en' } = Astro.props;
 const defaultAbout = {
   tag: 'About Us',
-  heading: 'Your Trusted Partner in Industrial Automation',
+  heading: 'Partner Group "John Galt"',
   paragraphs: [
-    'John Galt is a leading group of organizations specializing in comprehensive industrial automation solutions. We combine expertise in mechanical engineering, electrical systems, software development, and international sourcing to deliver turnkey solutions for the food processing industry.',
-    'Our integrated approach ensures seamless project execution from initial design through commissioning and ongoing support. With deep industry knowledge and commitment to innovation, we help our clients achieve operational excellence and competitive advantage.',
+    'Our group unites several organizations and teams engaged in the production of technological equipment and industrial automation systems for the food industry, welding and electrical installation services, real-time software development, as well as sourcing and importing technological components.',
+    'As a group of companies and technical crews operating across multiple countries, we work with a wide range of clients — from large vertically integrated industrial corporations to individual customers with specific technical needs. Our contactable technical representatives are located in regions including the Balkans, the South Caucasus and Iran, China, India, and CIS countries.',
   ],
   capabilities: [
-    'Complete project management from design to implementation',
-    '24/7 technical support and maintenance services',
-    'Custom engineering solutions tailored to your needs',
-    'International component sourcing and logistics',
-    'Compliance with global industry standards',
-    'Training and knowledge transfer programs',
+    'Manufacturing of mixing and filtration equipment for the alcoholic beverage industry (including the continuous blending and treatment technology known as "Ruchey"), as well as the development of comprehensive solutions for vodka and spirits production lines using both traditional and simplified methods;',
+    'Production, maintenance, and servicing of proprietary and third-party industrial and municipal water purification systems based on reverse osmosis, microfiltration, and ion exchange technologies — including for food and pharmaceutical enterprises, boiler rooms, and water intake stations;',
+    'Supply and maintenance of low-capacity water treatment systems for small and medium-sized businesses (restaurants, hotels, private homes), as well as for residential infrastructure;',
+    'Technological installation and commissioning services at enterprises with continuous production cycles (e.g. food, alcohol, chemical, and fuel industries), particularly where stainless-steel tank and piping systems are used;',
+    'Custom and small-batch production of low-voltage and power control cabinet equipment — based on schematic documentation, technical specifications, or open client requirements. This includes component supply, cabinet software development (softlogic, microSCADA), and preparation of technical documentation;',
+    'Installation of distributed soil, hydrological, and meteorological monitoring stations for agriculture, aquaculture, and municipal applications;',
+    'Supply of components and ready-to-use modules for scalable energy storage systems (e.g. redox systems);',
+    'Development of bespoke software for automated process control and operational/production management systems (SCADA, MRPI, MRPII).',
   ],
   stats: [
     { icon: 'Users', value: '50+', label: 'Expert Engineers' },
@@ -55,20 +65,35 @@ const about = {
         <h2 class="text-gray-900 mb-6 text-3xl md:text-4xl font-serif">
           {about.heading}
         </h2>
-        {about.paragraphs.map((paragraph) => (
-          <p class="text-gray-600 mb-6">{paragraph}</p>
-        ))}
+        {about.paragraphs.length > 0 && (
+          <p class="text-gray-600 mb-6">{about.paragraphs[0]}</p>
+        )}
 
-        <div class="space-y-3">
-          {about.capabilities.map((capability) => (
-            <div class="flex items-start gap-3">
-              <svg class="text-[#2d4a7c] flex-shrink-0 mt-1 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-              </svg>
-              <span class="text-gray-700">{capability}</span>
+        {about.capabilities && about.capabilities.length > 0 && (
+          <div class="mb-6">
+            <h3 class="text-xl font-serif text-gray-900 mb-4">We operate in the following areas:</h3>
+            <div class="space-y-3">
+              {about.capabilities.slice(0, 4).map((capability) => (
+                <div class="flex items-start gap-3">
+                  <svg class="text-[#2d4a7c] flex-shrink-0 mt-1 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                  </svg>
+                  <span class="text-gray-700 text-sm">{capability}</span>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
+          </div>
+        )}
+        
+        <a
+          href={getLocalizedPath(locale, 'about')}
+          class="text-[#2d4a7c] hover:text-[#1e3a5f] inline-flex items-center gap-2 font-medium transition-colors"
+        >
+          Read more
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </a>
       </div>
 
       <!-- Right Stats -->

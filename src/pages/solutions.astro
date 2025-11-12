@@ -1,0 +1,107 @@
+---
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import "../styles/tailwind.css";
+import { getLocaleFromUrl, getPageBySlugAndLocale } from "../lib/i18n";
+import { getTranslation } from "../lib/translations";
+
+const locale = getLocaleFromUrl(Astro.url);
+const pageEntry = await getPageBySlugAndLocale('pages', 'solutions', locale).catch(() => null);
+const pageData = pageEntry?.data ?? {};
+const solutionsData = pageData.solutions ?? {};
+const sections = solutionsData.sections ?? [];
+
+const defaultIntro = {
+  tag: 'Our Solutions',
+  heading: 'Comprehensive Industrial Solutions',
+  description: 'We provide end-to-end solutions for industrial automation, combining cutting-edge technology with decades of expertise.',
+};
+
+const intro = {
+  ...defaultIntro,
+  ...(solutionsData.intro ?? {}),
+};
+---
+
+<html lang={locale}>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={pageData.description || 'Our comprehensive industrial automation solutions'} />
+    <title>{pageData.title || getTranslation(locale, 'solutions')} - John Galt</title>
+  </head>
+  <body class="min-h-screen bg-white">
+    <Header locale={locale} />
+    <main class="pt-20">
+      <!-- Hero Section -->
+      <section class="bg-gradient-to-b from-[#2d4a7c]/5 to-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="text-center max-w-3xl mx-auto">
+            {intro.tag && (
+              <div class="inline-block px-4 py-2 bg-[#2d4a7c]/10 text-[#2d4a7c] rounded-full mb-4">
+                {intro.tag}
+              </div>
+            )}
+            <h1 class="text-4xl md:text-5xl font-serif text-gray-900 mb-6">
+              {pageData.title || intro.heading || getTranslation(locale, 'solutions')}
+            </h1>
+            {(pageData.description || intro.description) && (
+              <p class="text-xl text-gray-600">{pageData.description || intro.description}</p>
+            )}
+          </div>
+        </div>
+      </section>
+
+      <!-- Solutions Sections -->
+      <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {sections.length > 0 ? (
+            <div class="space-y-24">
+              {sections.map((section, index) => (
+                <div class={`grid lg:grid-cols-2 gap-12 items-center ${index % 2 === 1 ? 'lg:grid-flow-dense' : ''}`}>
+                  <div class={index % 2 === 1 ? 'lg:col-start-2' : ''}>
+                    {section.image && (
+                      <div class="rounded-xl overflow-hidden shadow-lg">
+                        <img
+                          src={section.image}
+                          alt={section.heading}
+                          class="w-full h-auto object-cover"
+                          loading="lazy"
+                        />
+                      </div>
+                    )}
+                  </div>
+                  <div class={index % 2 === 1 ? 'lg:col-start-1 lg:row-start-1' : ''}>
+                    <h2 class="text-3xl md:text-4xl font-serif text-gray-900 mb-6">
+                      {section.heading}
+                    </h2>
+                    {section.items && section.items.length > 0 && (
+                      <ul class="space-y-3">
+                        {section.items.map((item) => (
+                          <li class="flex items-start gap-3">
+                            <svg class="text-[#2d4a7c] flex-shrink-0 mt-1 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            <span class="text-gray-700 text-lg">{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div class="text-center py-12">
+              <p class="text-gray-600 text-lg">Content coming soon...</p>
+            </div>
+          )}
+        </div>
+      </section>
+    </main>
+    <Footer locale={locale} />
+  </body>
+</html>
+

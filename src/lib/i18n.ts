@@ -1,4 +1,5 @@
 import type { Locale } from './translations';
+import { getCollection } from 'astro:content';
 
 const supportedLocales: Locale[] = ['en', 'ru', 'sr', 'hy', 'fr'];
 
@@ -13,5 +14,19 @@ export function getLocaleFromUrl(url: URL): Locale {
   
   // Default to English
   return 'en';
+}
+
+/**
+ * Get a page entry by slug and locale
+ */
+export async function getPageBySlugAndLocale(
+  collection: 'pages' | 'posts',
+  slug: string,
+  locale: Locale
+) {
+  const entries = await getCollection(collection, ({ data }) => {
+    return data.lang === locale && !data.draft;
+  });
+  return entries.find((entry) => entry.slug === slug) || null;
 }
 
