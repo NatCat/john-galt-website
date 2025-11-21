@@ -9,6 +9,22 @@ media_folder: public/images/uploads
 public_folder: /john-galt-website/images/uploads
 
 collections:
+  - name: "menu"
+    label: "Menu Settings"
+    files:
+      - label: "Navigation Menu"
+        name: "menu"
+        file: "src/content/menu.json"
+        format: "json"
+        fields:
+          - label: "Menu Items"
+            name: "items"
+            widget: "list"
+            fields:
+              - {label: "Menu Key", name: "key", widget: "string", required: true, hint: "Internal identifier (e.g., 'home', 'about')"}
+              - {label: "Path", name: "path", widget: "string", required: false, hint: "URL path (leave empty for home page, or use 'about', 'solutions', etc.)"}
+              - {label: "Visible in Menu", name: "visible", widget: "boolean", default: true, hint: "Uncheck to hide this item from navigation"}
+
   - name: "posts"
     label: "Posts"
     folder: "src/content/posts"
@@ -16,7 +32,7 @@ collections:
     slug: "{{slug}}"
     format: frontmatter
     extension: md
-    preview_path: "{{slug}}"
+    preview_path: "posts/{{slug}}"
     fields:
       - {label: "Language", name: "lang", widget: "select", options: ["en", "ru", "sr", "hy", "fr"], default: "en"}
       - {label: "Title", name: "title", widget: "string"}

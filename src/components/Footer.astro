@@ -1,5 +1,6 @@
 ---
-import { getTranslation, type Locale } from '../lib/translations';
+import { getTranslation, getLocalizedPath, type Locale } from '../lib/translations';
+import { getVisibleMenuItems } from '../lib/menu-config';
 
 interface Props {
   locale?: Locale;
@@ -42,6 +43,7 @@ const iconPaths: Record<string, string> = {
 const serviceNames = (Astro.props.services ?? []).map((service) => service.title).slice(0, 4);
 const defaultServices = ['Industrial Automation', 'Welding Services', 'Software Development', 'Component Sourcing'];
 const footerServices = serviceNames.length > 0 ? serviceNames : defaultServices;
+const visibleMenuItems = getVisibleMenuItems();
 ---
 
 <footer class="bg-gray-900 text-gray-300">
@@ -70,30 +72,16 @@ const footerServices = serviceNames.length > 0 ? serviceNames : defaultServices;
       <div>
         <h3 class="text-white mb-4 font-semibold">Quick Links</h3>
         <ul class="space-y-2 text-sm">
-          <li>
-            <a href="#home" class="hover:text-[#7a5da3] transition-colors">{getTranslation(locale, 'home')}</a>
-          </li>
-          <li>
-            <a href="#about" class="hover:text-[#7a5da3] transition-colors">{getTranslation(locale, 'about')}</a>
-          </li>
-          <li>
-            <a href="#services" class="hover:text-[#7a5da3] transition-colors">{getTranslation(locale, 'solutions')}</a>
-          </li>
-          <li>
-            <a href="#portfolio" class="hover:text-[#7a5da3] transition-colors">{getTranslation(locale, 'portfolio')}</a>
-          </li>
-          <li>
-            <a href="#equipment" class="hover:text-[#7a5da3] transition-colors">{getTranslation(locale, 'equipment')}</a>
-          </li>
-          <li>
-            <a href="#representatives" class="hover:text-[#7a5da3] transition-colors">{getTranslation(locale, 'representatives')}</a>
-          </li>
-          <li>
-            <a href="#papers" class="hover:text-[#7a5da3] transition-colors">{getTranslation(locale, 'papers')}</a>
-          </li>
-          <li>
-            <a href="#support" class="hover:text-[#7a5da3] transition-colors">{getTranslation(locale, 'support')}</a>
-          </li>
+          {visibleMenuItems.map((item) => (
+            <li>
+              <a 
+                href={getLocalizedPath(locale, item.path)} 
+                class="hover:text-[#7a5da3] transition-colors"
+              >
+                {getTranslation(locale, item.key)}
+              </a>
+            </li>
+          ))}
         </ul>
       </div>
 

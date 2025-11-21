@@ -107,15 +107,17 @@ about:
   tag: About Us
   heading: Your Trusted Partner in Industrial Automation
   paragraphs:
-    - John Galt is a leading group of organizations specializing in
-      comprehensive industrial automation solutions. We combine expertise in
-      mechanical engineering, electrical systems, software development, and
-      international sourcing to deliver turnkey solutions for the food
-      processing industry.
-    - Our integrated approach ensures seamless project execution from initial
-      design through commissioning and ongoing support. With deep industry
-      knowledge and commitment to innovation, we help our clients achieve
-      operational excellence and competitive advantage.
+    - We are a group of companies specializing in industrial automation, water
+      treatment, and custom process solutions for food, alcohol, and energy
+      sectors. From equipment design to software development, we serve clients
+      across Europe, the Balkans, and Asia with turnkey engineering and
+      real-time control systems.
+    - |-
+      ✓ Industrial automation for food & beverage
+      ✓ Continuous vodka mixing systems
+      ✓ Water purification for factories & cities
+      ✓ Custom control panels & software
+      ✓ International sourcing & technical support
   capabilities:
     - Complete project management from design to implementation
     - 24/7 technical support and maintenance services

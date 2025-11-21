@@ -4,10 +4,121 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Content Manager</title>
+  <style>
+    .cms-custom-preview-link {
+      display: inline-block;
+      margin-left: 10px;
+      padding: 4px 8px;
+      background: #2d4a7c;
+      color: white;
+      text-decoration: none;
+      border-radius: 4px;
+      font-size: 12px;
+    }
+    .cms-custom-preview-link:hover {
+      background: #1e3a5f;
+    }
+  </style>
 </head>
 <body>
   <!-- Include the script that builds the page and powers Decap CMS -->
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  <script>
+    (function() {
+      'use strict';
+      
+      // Wait for CMS to be available
+      function initCMS() {
+        if (!window.CMS) {
+          setTimeout(initCMS, 100);
+          return;
+        }
+        
+        const CMS = window.CMS;
+        
+        // Function to get preview URL
+        function getPreviewUrl(collection, slug, lang) {
+          const isProduction = window.location.hostname !== 'localhost' && 
+                              window.location.hostname !== '127.0.0.1' &&
+                              !window.location.hostname.includes('127.0.0.1');
+          const base = isProduction ? '/john-galt-website' : '';
+          lang = lang || 'en';
+          
+          if (collection === 'pages') {
+            if (slug === 'home') {
+              return lang === 'en' ? `${base}/` : `${base}/${lang}/`;
+            }
+            return lang === 'en' ? `${base}/${slug}` : `${base}/${lang}/${slug}`;
+          } else if (collection === 'posts') {
+            return lang === 'en' ? `${base}/posts/${slug}` : `${base}/${lang}/posts/${slug}`;
+          }
+          return `${base}/${slug}`;
+        }
+        
+        // Add preview links to entry listing
+        function addPreviewLinksToList() {
+          // Find entry list items
+          const observer = new MutationObserver(function() {
+            const entryItems = document.querySelectorAll('[data-testid="entry-list-item"], .nc-entryListing-card, [class*="EntryCard"]');
+            entryItems.forEach(function(item) {
+              // Check if we already added a link
+              if (item.querySelector('.cms-custom-preview-link')) return;
+              
+              // Try to get slug and lang from the entry
+              const link = item.querySelector('a[href*="/collections/"]');
+              if (link) {
+                const href = link.getAttribute('href');
+                const match = href.match(/\/collections\/([^\/]+)\/entries\/([^\/]+)/);
+                if (match) {
+                  const collection = match[1];
+                  const slug = match[2];
+                  
+                  // Create preview link
+                  const previewLink = document.createElement('a');
+                  previewLink.className = 'cms-custom-preview-link';
+                  previewLink.textContent = 'View';
+                  previewLink.href = window.location.origin + getPreviewUrl(collection, slug, 'en');
+                  previewLink.target = '_blank';
+                  previewLink.title = 'View page (defaults to English, check language in editor)';
+                  
+                  // Insert after the entry link
+                  link.parentNode.insertBefore(previewLink, link.nextSibling);
+                }
+              }
+            });
+          });
+          
+          observer.observe(document.body, {
+            childList: true,
+            subtree: true
+          });
+        }
+        
+        // Override preview button in editor
+        CMS.registerEventListener({
+          name: 'preview',
+          handler: function({ entry, collection }) {
+            const slug = entry.get('slug');
+            const lang = entry.get('lang') || 'en';
+            const previewUrl = window.location.origin + getPreviewUrl(collection, slug, lang);
+            
+            // Open in new tab
+            window.open(previewUrl, '_blank');
+          }
+        });
+        
+        // Start adding links
+        addPreviewLinksToList();
+      }
+      
+      // Initialize when DOM is ready
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initCMS);
+      } else {
+        initCMS();
+      }
+    })();
+  </script>
 </body>
 </html>
 

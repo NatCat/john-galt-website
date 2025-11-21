@@ -1,0 +1,44 @@
+{
+  "items": [
+    {
+      "key": "home",
+      "path": "",
+      "visible": true
+    },
+    {
+      "key": "about",
+      "path": "about",
+      "visible": true
+    },
+    {
+      "key": "solutions",
+      "path": "solutions",
+      "visible": true
+    },
+    {
+      "key": "equipment",
+      "path": "equipment",
+      "visible": true
+    },
+    {
+      "key": "portfolio",
+      "path": "portfolio",
+      "visible": true
+    },
+    {
+      "key": "representatives",
+      "path": "representatives",
+      "visible": true
+    },
+    {
+      "key": "papers",
+      "path": "papers",
+      "visible": false
+    },
+    {
+      "key": "support",
+      "path": "support",
+      "visible": false
+    }
+  ]
+}
