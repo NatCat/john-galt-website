@@ -29,10 +29,12 @@ const sectionIntroSchema = z
 const heroSchema = z.object({
   heading: z.string(),
   subheading: z.string(),
-  primaryCta: z.object({
-    label: z.string(),
-    url: z.string(),
-  }),
+  primaryCta: z
+    .object({
+      label: z.string(),
+      url: z.string(),
+    })
+    .optional(),
   secondaryCta: z
     .object({
       label: z.string(),
@@ -55,8 +57,8 @@ const servicesSchema = z
     z.object({
       icon: z.enum(serviceIcons),
       title: z.string(),
-      description: z.string(),
-      image: z.string(),
+      description: z.string().optional(),
+      image: z.string().optional(),
     }),
   )
   .optional();

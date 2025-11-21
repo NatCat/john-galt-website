@@ -29,25 +29,45 @@ servicesIntro:
     tailored to your production needs.
 services:
   - icon: Factory
-    title: Industrial Automation Systems
-    description: Complete automation solutions for food industry processing,
-      including sorting systems, processing blocks, and dosing equipment.
-    image: https://images.unsplash.com/photo-1761195696590-3490ea770aa1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080
+    title: " Water-alcohol flow mixers"
+    description: Mixing and dosing modules, automatic lines for vodka preparation
+    image: /john-galt-website/images/uploads/sdm_small.jpg
+  - icon: Factory
+    title: Cartridge filter modules
+    description: Automation of filtration and purification equipment for distilleries
+    image: /john-galt-website/images/uploads/bos_small.jpg
   - icon: Zap
-    title: Welding & Electrical Services
-    description: Professional welding and electrical installation services for
-      industrial facilities and manufacturing plants.
-    image: https://images.unsplash.com/photo-1562568068-7a90cf9e499d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080
-  - icon: Code
-    title: Real-Time Software Development
-    description: Custom software solutions for industrial control systems, SCADA,
-      HMI interfaces, and process monitoring.
-    image: https://images.unsplash.com/photo-1521737852567-6949f3f9f2b5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080
+    title: Vodka treatment with coal columns
+    description: Automation of filtration and purification equipment for distilleries
+    image: /john-galt-website/images/uploads/uk_small.jpg
   - icon: Package
-    title: Component Sourcing & Import
-    description: Reliable sourcing and importing of high-quality technological
-      components and equipment for industrial applications.
-    image: https://images.unsplash.com/photo-1759159091682-3b98f4759367?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080
+    title: Modules for in-stream dosing
+    description: Mixing and dosing modules, automatic lines for vodka preparation
+    image: /john-galt-website/images/uploads/bdi_small.jpg
+  - icon: Factory
+    title: Mixers for water conditioning
+    image: /john-galt-website/images/uploads/bdv_small.jpg
+  - icon: Factory
+    title: Water treatment for beverages
+    image: /john-galt-website/images/uploads/oo_small.jpg
+  - icon: Factory
+    title: Drainage water treatment for landfills
+    image: /john-galt-website/images/uploads/tbo_small.jpg
+  - icon: Factory
+    title: Water purification at water intakes
+    image: /john-galt-website/images/uploads/int_small.jpg
+  - icon: Factory
+    title: Automation of liquid storage
+    image: /john-galt-website/images/uploads/tank_small.jpg
+  - icon: Code
+    title: Workshop APMs and control rooms
+    image: /john-galt-website/images/uploads/scada_small.jpg
+  - icon: Zap
+    title: Accounting for complex mixtures
+    image: /john-galt-website/images/uploads/eh_small.jpg
+  - icon: Package
+    title: Production of electrical cabinets
+    image: /john-galt-website/images/uploads/box_small.jpg
 portfolioIntro:
   tag: Portfolio
   heading: Our Projects & Solutions

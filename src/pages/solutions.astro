@@ -4,12 +4,14 @@ import Footer from "../components/Footer.astro";
 import "../styles/tailwind.css";
 import { getLocaleFromUrl, getPageBySlugAndLocale } from "../lib/i18n";
 import { getTranslation } from "../lib/translations";
+import { getImageUrl } from "../lib/image-utils";
 
 const locale = getLocaleFromUrl(Astro.url);
 const pageEntry = await getPageBySlugAndLocale('pages', 'solutions', locale).catch(() => null);
 const pageData = pageEntry?.data ?? {};
 const solutionsData = pageData.solutions ?? {};
 const sections = solutionsData.sections ?? [];
+
 
 const defaultIntro = {
   tag: 'Our Solutions',
@@ -59,17 +61,23 @@ const intro = {
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {sections.length > 0 ? (
             <div class="space-y-24">
-              {sections.map((section, index) => (
+              {sections.map((section, index) => {
+                const imageUrl = section.image ? getImageUrl(section.image) : '';
+                return (
                 <div class={`grid lg:grid-cols-2 gap-12 items-center ${index % 2 === 1 ? 'lg:grid-flow-dense' : ''}`}>
                   <div class={index % 2 === 1 ? 'lg:col-start-2' : ''}>
-                    {section.image && (
-                      <div class="rounded-xl overflow-hidden shadow-lg">
+                    {imageUrl ? (
+                      <div class="rounded-xl overflow-hidden shadow-lg bg-gray-100">
                         <img
-                          src={section.image}
-                          alt={section.heading}
+                          src={imageUrl}
+                          alt={section.heading || 'Solution image'}
                           class="w-full h-auto object-cover"
                           loading="lazy"
                         />
+                      </div>
+                    ) : (
+                      <div class="rounded-xl overflow-hidden shadow-lg bg-gray-200 w-full h-64 flex items-center justify-center">
+                        <span class="text-gray-400">No image</span>
                       </div>
                     )}
                   </div>
@@ -91,7 +99,8 @@ const intro = {
                     )}
                   </div>
                 </div>
-              ))}
+                );
+              })}
             </div>
           ) : (
             <div class="text-center py-12">

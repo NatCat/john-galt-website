@@ -1,4 +1,6 @@
 ---
+import { getImageUrl } from '../lib/image-utils';
+
 const defaultIntro = {
   tag: 'Our Services',
   heading: 'Comprehensive Industrial Solutions',
@@ -51,16 +53,20 @@ const intro = {
   ...(Astro.props.intro ?? {}),
 };
 
-const services = (Astro.props.items && Astro.props.items.length > 0
-  ? Astro.props.items
-  : defaultServices
-).map((service, index) => ({
-  ...defaultServices[index % defaultServices.length],
-  ...service,
-}));
+// Use CMS data if available, otherwise fall back to defaults
+const rawServices = Astro.props.items || [];
+const services = rawServices.length > 0
+  ? rawServices.map((service) => ({
+      // Only use defaults for missing required fields, not for optional ones
+      icon: service.icon || defaultServices[0].icon,
+      title: service.title || 'Service', // Use placeholder if no title
+      description: service.description || undefined,
+      image: service.image || defaultServices[0].image,
+    }))
+  : defaultServices;
 ---
 
-<section id="services" class="py-20 bg-white">
+<section id="services" class="pt-12 pb-20 bg-white">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="text-center max-w-3xl mx-auto mb-16">
       {intro.tag && (
@@ -81,7 +87,7 @@ const services = (Astro.props.items && Astro.props.items.length > 0
           <div class="overflow-hidden rounded-xl border hover:shadow-xl transition-shadow duration-300 group">
             <div class="relative h-64 overflow-hidden">
               <img
-                src={service.image}
+                src={getImageUrl(service.image)}
                 alt={service.title}
                 class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 loading="lazy"
@@ -97,7 +103,9 @@ const services = (Astro.props.items && Astro.props.items.length > 0
             </div>
             <div class="p-6">
               <h3 class="text-gray-900 mb-3 text-xl font-semibold">{service.title}</h3>
-              <p class="text-gray-600">{service.description}</p>
+              {service.description && (
+                <p class="text-gray-600">{service.description}</p>
+              )}
             </div>
           </div>
         );
