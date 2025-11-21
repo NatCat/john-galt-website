@@ -1,6 +1,7 @@
 ---
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
+import Contact from "../../components/Contact.astro";
 import "../../styles/tailwind.css";
 import { getLocaleFromUrl, getPageBySlugAndLocale } from "../../lib/i18n";
 import { getTranslation } from "../../lib/translations";
@@ -15,6 +16,12 @@ const historyData = aboutPageData.history ?? {};
 const homeEntry = await getPageBySlugAndLocale('pages', 'home', locale).catch(() => null);
 const homeData = homeEntry?.data ?? {};
 const fallbackAboutData = homeData.about ?? {};
+
+// Get contact data from about page or home page
+let contactData = aboutPageData.contact;
+if (!contactData) {
+  contactData = homeData.contact;
+}
 
 const defaultAbout = {
   tag: locale === 'fr' ? 'À propos' : 'About Us',
@@ -160,6 +167,9 @@ const about = {
           </a>
         </div>
       </section>
+
+      <!-- Contact Section -->
+      <Contact data={contactData} />
     </main>
     <Footer contact={homeData?.contact} services={homeData?.services} locale={locale} />
   </body>

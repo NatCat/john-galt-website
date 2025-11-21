@@ -1,6 +1,7 @@
 ---
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
+import Contact from "../../components/Contact.astro";
 import "../../styles/tailwind.css";
 import { getPageBySlugAndLocale } from "astro:content";
 import { getLocaleFromUrl, getPageBySlugAndLocale } from "../../lib/i18n";
@@ -10,6 +11,14 @@ const locale = getLocaleFromUrl(Astro.url);
 const pageEntry = await getPageBySlugAndLocale('pages', 'representatives', locale).catch(() => null);
 const pageData = pageEntry?.data ?? {};
 const { Content } = pageEntry ? await pageEntry.render() : { Content: null };
+
+// Get contact data from page or home page
+let contactData = pageData.contact;
+if (!contactData) {
+  const homeEntry = await getPageBySlugAndLocale('pages', 'home', locale).catch(() => null);
+  const homeData = homeEntry?.data ?? {};
+  contactData = homeData.contact;
+}
 ---
 
 <html lang={locale}>
