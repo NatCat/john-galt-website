@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
+import { getImageUrl } from '../lib/image-utils';
 
 const posts = await getCollection('posts', ({ data }) => !data.draft);
 const latestPosts = posts
@@ -39,7 +40,7 @@ const articles =
         title: data.title,
         excerpt: data.description,
         pubDate: data.pubDate,
-        image: data.image ?? 'https://images.unsplash.com/photo-1761195696590-3490ea770aa1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+        image: data.image ? getImageUrl(data.image) : 'https://images.unsplash.com/photo-1761195696590-3490ea770aa1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
         category: data.tags?.[0] ?? 'News',
         url: `/posts/${slug}/`,
       }))

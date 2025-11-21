@@ -95,14 +95,27 @@ const contactSchema = z
   .object({
     tag: z.string().optional(),
     heading: z.string(),
-    description: z.string(),
-    info: z.array(
-      z.object({
-        icon: z.enum(contactIcons),
-        title: z.string(),
-        lines: z.array(z.string()),
-      }),
-    ),
+    description: z.string().optional(),
+    sectionDescription: z.string().optional(),
+    countries: z
+      .array(
+        z.object({
+          country: z.string(),
+          phone: z.string().optional(),
+          email: z.string().optional(),
+          address: z.string().optional(),
+        }),
+      )
+      .optional(),
+    info: z
+      .array(
+        z.object({
+          icon: z.enum(contactIcons),
+          title: z.string(),
+          lines: z.array(z.string()),
+        }),
+      )
+      .optional(),
     submitLabel: z.string().optional(),
   })
   .optional();

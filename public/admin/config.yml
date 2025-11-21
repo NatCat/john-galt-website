@@ -25,6 +25,23 @@ collections:
               - {label: "Path", name: "path", widget: "string", required: false, hint: "URL path (leave empty for home page, or use 'about', 'solutions', etc.)"}
               - {label: "Visible in Menu", name: "visible", widget: "boolean", default: true, hint: "Uncheck to hide this item from navigation"}
 
+  - name: "footer"
+    label: "Footer Settings"
+    files:
+      - label: "Footer Content"
+        name: "footer"
+        file: "src/content/footer.json"
+        format: "json"
+        fields:
+          - {label: "Description", name: "description", widget: "text", required: false, hint: "Text displayed under the logo in the footer"}
+          - label: "Contact Info"
+            name: "contactInfo"
+            widget: "list"
+            required: false
+            fields:
+              - {label: "Icon", name: "icon", widget: "select", options: ["Phone", "Mail", "MapPin"], default: "Phone", required: false}
+              - {label: "Text", name: "text", widget: "string", required: false}
+
   - name: "posts"
     label: "Posts"
     folder: "src/content/posts"
@@ -218,8 +235,18 @@ collections:
         fields:
           - {label: "Tag", name: "tag", widget: "string", required: false}
           - {label: "Heading", name: "heading", widget: "string", required: false}
-          - {label: "Description", name: "description", widget: "text", required: false}
-          - label: "Contact Info"
+          - {label: "Description", name: "description", widget: "text", required: false, hint: "This description appears in the footer"}
+          - {label: "Contact Section Description", name: "sectionDescription", widget: "text", required: false, hint: "Description for the contact section on the page"}
+          - label: "Countries"
+            name: "countries"
+            widget: "list"
+            required: false
+            fields:
+              - {label: "Country Name", name: "country", widget: "string", required: false}
+              - {label: "Phone", name: "phone", widget: "string", required: false}
+              - {label: "Email", name: "email", widget: "string", required: false}
+              - {label: "Address", name: "address", widget: "string", required: false}
+          - label: "Contact Info (Legacy - for backward compatibility)"
             name: "info"
             widget: "list"
             required: false

@@ -40,15 +40,22 @@ const iconPaths: Record<string, string> = {
 };
 
 const incoming = Astro.props.data ?? {};
+// Prioritize CMS data - only use defaults if CMS data is completely missing
 const about = {
-  ...defaultAbout,
-  ...incoming,
-  paragraphs: incoming.paragraphs && incoming.paragraphs.length > 0 ? incoming.paragraphs : defaultAbout.paragraphs,
-  capabilities: incoming.capabilities && incoming.capabilities.length > 0 ? incoming.capabilities : defaultAbout.capabilities,
-  stats: (incoming.stats && incoming.stats.length > 0 ? incoming.stats : defaultAbout.stats).map((stat, index) => ({
-    ...defaultAbout.stats[index % defaultAbout.stats.length],
-    ...stat,
-  })),
+  tag: incoming.tag ?? defaultAbout.tag,
+  heading: incoming.heading ?? defaultAbout.heading,
+  // Only use default paragraphs if CMS has no paragraphs at all
+  paragraphs: incoming.paragraphs && Array.isArray(incoming.paragraphs) && incoming.paragraphs.length > 0 
+    ? incoming.paragraphs 
+    : defaultAbout.paragraphs,
+  // Only use default capabilities if CMS has no capabilities at all
+  capabilities: incoming.capabilities && Array.isArray(incoming.capabilities) && incoming.capabilities.length > 0 
+    ? incoming.capabilities 
+    : defaultAbout.capabilities,
+  // Only use default stats if CMS has no stats at all
+  stats: incoming.stats && Array.isArray(incoming.stats) && incoming.stats.length > 0 
+    ? incoming.stats 
+    : defaultAbout.stats,
 };
 ---
 
@@ -66,14 +73,18 @@ const about = {
           {about.heading}
         </h2>
         {about.paragraphs.length > 0 && (
-          <p class="text-gray-600 mb-6">{about.paragraphs[0]}</p>
+          <div class="mb-6 space-y-4">
+            {about.paragraphs.map((paragraph, index) => (
+              <p class="text-gray-600" key={index}>{paragraph}</p>
+            ))}
+          </div>
         )}
 
         {about.capabilities && about.capabilities.length > 0 && (
           <div class="mb-6">
             <h3 class="text-xl font-serif text-gray-900 mb-4">We operate in the following areas:</h3>
             <div class="space-y-3">
-              {about.capabilities.slice(0, 4).map((capability) => (
+              {about.capabilities.map((capability) => (
                 <div class="flex items-start gap-3">
                   <svg class="text-[#2d4a7c] flex-shrink-0 mt-1 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>

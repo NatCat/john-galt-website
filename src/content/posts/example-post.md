@@ -1,25 +1,27 @@
 ---
-title: "Welcome to Netlify CMS"
+lang: en
+title: New Automated Dosing Modules Deployed for Leading Distillery in Belgrade
 pubDate: 2024-01-15
-description: "This is an example post created with Netlify CMS"
-author: "Admin"
-tags: ["cms", "netlify", "astro"]
+description: In October 2025, our engineering team successfully commissioned a
+  new generation of in-stream dosing modules at a distillery in Belgrade, as
+  part of a broader modernization project for vodka production.
+author: Admin
+image: /john-galt-website/images/uploads/image.png
+tags:
+  - modules
+  - belgrade
+  - automated
 draft: false
 ---
+In October 2025, our engineering team successfully commissioned a new generation of in-stream dosing modules at a distillery in Central Europe, as part of a broader modernization project for vodka production.
 
-# Welcome to Netlify CMS
+The system integrates real-time adjustment of component ratios, automatic logging, and remote diagnostics. Based on our proprietary “Ruchey” continuous blending technology, the upgrade increased batching accuracy by 23% and reduced manual intervention by 70%.
 
-This is an example blog post that demonstrates how content is structured in Netlify CMS.
+“We are proud to deliver automation that brings both precision and flexibility to our clients in the alcohol industry,” said the project lead.
 
-You can edit this post or create new ones through the Netlify CMS admin panel at `/admin/`.
+The new module line will serve as a pilot for further implementation across the region.
 
-## Features
+📍 Deployed: Q4 2025
+🔧 Technology used: Ruchey dosing block v3.2 + PLC/SCADA integration
 
-- Markdown support
-- Image uploads
-- Draft mode
-- Tags and categories
-- Custom fields
-
-Start editing content through the CMS interface!
 

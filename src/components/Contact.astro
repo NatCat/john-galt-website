@@ -49,32 +49,76 @@ const contact = {
       <h2 class="text-gray-900 mb-4 text-3xl md:text-4xl font-serif">
         {contact.heading}
       </h2>
-      {contact.description && <p class="text-gray-600">{contact.description}</p>}
+      {(contact.sectionDescription || contact.description) && (
+        <p class="text-gray-600">{contact.sectionDescription || contact.description}</p>
+      )}
     </div>
 
     <div class="grid lg:grid-cols-3 gap-8">
       <!-- Contact Information -->
       <div class="space-y-6">
-        {contact.info.map((item) => {
-          const path = iconPaths[item.icon] ?? iconPaths[defaultContact.info[0].icon];
-          return (
+        {contact.countries && contact.countries.length > 0 ? (
+          contact.countries.map((country) => (
             <div class="rounded-xl border p-6">
-              <div class="flex items-start gap-4">
-                <div class="bg-[#2d4a7c]/10 p-3 rounded-lg">
-                  <svg class="text-[#2d4a7c] w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={path}></path>
-                  </svg>
-                </div>
-                <div>
-                  <div class="text-gray-900 mb-1 font-semibold">{item.title}</div>
-                  {item.lines.map((line) => (
-                    <div class="text-sm text-gray-600">{line}</div>
-                  ))}
-                </div>
+              <div class="mb-4">
+                <h3 class="text-gray-900 font-bold text-lg uppercase">{country.country}</h3>
+              </div>
+              <div class="space-y-3">
+                {country.phone && (
+                  <div class="flex items-start gap-3">
+                    <div class="bg-[#2d4a7c]/10 p-2 rounded-lg">
+                      <svg class="text-[#2d4a7c] w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={iconPaths.Phone}></path>
+                      </svg>
+                    </div>
+                    <div class="text-sm text-gray-600">{country.phone}</div>
+                  </div>
+                )}
+                {country.email && (
+                  <div class="flex items-start gap-3">
+                    <div class="bg-[#2d4a7c]/10 p-2 rounded-lg">
+                      <svg class="text-[#2d4a7c] w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={iconPaths.Mail}></path>
+                      </svg>
+                    </div>
+                    <div class="text-sm text-gray-600">{country.email}</div>
+                  </div>
+                )}
+                {country.address && (
+                  <div class="flex items-start gap-3">
+                    <div class="bg-[#2d4a7c]/10 p-2 rounded-lg">
+                      <svg class="text-[#2d4a7c] w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={iconPaths.MapPin}></path>
+                      </svg>
+                    </div>
+                    <div class="text-sm text-gray-600">{country.address}</div>
+                  </div>
+                )}
               </div>
             </div>
-          );
-        })}
+          ))
+        ) : (
+          contact.info.map((item) => {
+            const path = iconPaths[item.icon] ?? iconPaths[defaultContact.info[0].icon];
+            return (
+              <div class="rounded-xl border p-6">
+                <div class="flex items-start gap-4">
+                  <div class="bg-[#2d4a7c]/10 p-3 rounded-lg">
+                    <svg class="text-[#2d4a7c] w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={path}></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <div class="text-gray-900 mb-1 font-semibold">{item.title}</div>
+                    {item.lines.map((line) => (
+                      <div class="text-sm text-gray-600">{line}</div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            );
+          })
+        )}
       </div>
 
       <!-- Contact Form -->

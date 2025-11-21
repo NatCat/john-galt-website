@@ -125,26 +125,19 @@ portfolio:
     image: https://images.unsplash.com/photo-1759668987649-a2057d0a9f35?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080
 about:
   tag: About Us
-  heading: Your Trusted Partner in Industrial Automation
+  heading: Industry-Driven Innovation, Engineered for You
   paragraphs:
     - We are a group of companies specializing in industrial automation, water
       treatment, and custom process solutions for food, alcohol, and energy
       sectors. From equipment design to software development, we serve clients
       across Europe, the Balkans, and Asia with turnkey engineering and
       real-time control systems.
-    - |-
-      ✓ Industrial automation for food & beverage
-      ✓ Continuous vodka mixing systems
-      ✓ Water purification for factories & cities
-      ✓ Custom control panels & software
-      ✓ International sourcing & technical support
   capabilities:
-    - Complete project management from design to implementation
-    - 24/7 technical support and maintenance services
-    - Custom engineering solutions tailored to your needs
-    - International component sourcing and logistics
-    - Compliance with global industry standards
-    - Training and knowledge transfer programs
+    - Industrial automation for food & beverage
+    - Continuous vodka mixing systems
+    - Water purification for factories & cities
+    - Custom control panels & software
+    - International sourcing & technical support
   stats:
     - icon: Users
       value: 50+
@@ -161,23 +154,21 @@ about:
 contact:
   tag: Contact Us
   heading: Let's Discuss Your Project
-  description: Get in touch with our team to explore how we can help automate and
-    optimize your industrial processes.
-  info:
-    - icon: Phone
-      title: Phone
-      lines:
-        - +7 (XXX) XXX-XX-XX
-        - Mon-Fri 9:00-18:00
-    - icon: Mail
-      title: Email
-      lines:
-        - info@john-galt.me
-        - support@john-galt.me
-    - icon: MapPin
-      title: Location
-      lines:
-        - Industrial District
-        - Moscow Region, Russia
+  description: Your Engineering Partner in Vodka Tech & Industrial Automation
+  countries:
+    - country: Serbia
+      phone: "+381 62 8703281"
+      email: info@johngalt.rs
+      address: Nenadovicha 19, Belgrade
+    - country: Montenegro
+      phone: "+382 68 394976"
+      email: info@john-galt.me
+    - country: Armenia
+      phone: "+374 91 069141"
+      email: info@johngalt.am
+      address: 3rd Alashkert st. 10, Armavir
+    - country: Russia
+      phone: "+7 495 7892887"
+      email: info@ruchej.com
   submitLabel: Send Message
 ---

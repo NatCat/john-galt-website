@@ -1,0 +1,18 @@
+{
+  "description": "Your Engineering Partner in Vodka Tech & Industrial Automation",
+  "contactInfo": [
+    {
+      "icon": "MapPin",
+      "text": "Nenadovicha 19, Belgrade"
+    },
+    {
+      "icon": "Phone",
+      "text": "+381 62 8703281"
+    },
+    {
+      "icon": "Mail",
+      "text": "info@johngalt.rs"
+    }
+  ]
+}
+

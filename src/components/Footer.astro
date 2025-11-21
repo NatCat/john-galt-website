@@ -1,6 +1,7 @@
 ---
 import { getTranslation, getLocalizedPath, type Locale } from '../lib/translations';
 import { getVisibleMenuItems } from '../lib/menu-config';
+import { getFooterDescription, getFooterContactInfo } from '../lib/footer-config';
 
 interface Props {
   locale?: Locale;
@@ -8,31 +9,12 @@ interface Props {
   services?: any[];
 }
 
-const { locale = 'en', contact, services } = Astro.props;
-const defaultContact = {
-  info: [
-    {
-      icon: 'MapPin',
-      text: 'Moscow Region, Russia',
-    },
-    {
-      icon: 'Phone',
-      text: '+7 (XXX) XXX-XX-XX',
-    },
-    {
-      icon: 'Mail',
-      text: 'info@rtc-automation.com',
-    },
-  ],
-};
-
+const { locale = 'en', services } = Astro.props;
 const logoSrc = `${import.meta.env.BASE_URL}logo.png`;
 
-const contactInfo = (Astro.props.contact?.info ?? []).flatMap((item) =>
-  item.lines.map((line) => ({ icon: item.icon, text: line })),
-);
-
-const displayedContact = contactInfo.length > 0 ? contactInfo : defaultContact.info;
+// Get footer content from dedicated footer config
+const footerDescription = getFooterDescription();
+const footerContactInfo = getFooterContactInfo();
 
 const iconPaths: Record<string, string> = {
   MapPin: 'M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z M15 11a3 3 0 11-6 0 3 3 0 016 0z',
@@ -55,7 +37,7 @@ const visibleMenuItems = getVisibleMenuItems();
           <img src={logoSrc} alt="John Galt" class="h-14 w-auto" onerror="this.style.display='none'" />
         </div>
         <p class="text-sm text-gray-400 mb-4">
-          Leading provider of industrial automation solutions for the food processing industry.
+          {footerDescription}
         </p>
         <div class="flex items-center gap-2 text-sm text-gray-400">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -99,8 +81,8 @@ const visibleMenuItems = getVisibleMenuItems();
       <div>
         <h3 class="text-white mb-4 font-semibold">Contact Info</h3>
         <ul class="space-y-3 text-sm">
-          {displayedContact.map((item, index) => {
-            const path = iconPaths[item.icon] ?? iconPaths.MapPin;
+          {footerContactInfo.map((item, index) => {
+            const path = iconPaths[item.icon as keyof typeof iconPaths] ?? iconPaths.MapPin;
             return (
               <li class="flex items-start gap-2">
                 <svg class="w-4 h-4 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
