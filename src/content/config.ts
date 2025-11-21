@@ -98,6 +98,7 @@ const contactSchema = z
     heading: z.string(),
     description: z.string().optional(),
     sectionDescription: z.string().optional(),
+    recipientEmail: z.string().email().optional(),
     countries: z
       .array(
         z.object({

@@ -237,6 +237,7 @@ collections:
           - {label: "Heading", name: "heading", widget: "string", required: false}
           - {label: "Description", name: "description", widget: "text", required: false, hint: "This description appears in the footer"}
           - {label: "Contact Section Description", name: "sectionDescription", widget: "text", required: false, hint: "Description for the contact section on the page"}
+          - {label: "Form Recipient Email", name: "recipientEmail", widget: "string", required: false, hint: "Email address where contact form submissions will be sent (e.g., info@johngalt.am)"}
           - label: "Countries"
             name: "countries"
             widget: "list"

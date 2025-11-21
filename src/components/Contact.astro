@@ -35,6 +35,8 @@ const contact = {
   ...defaultContact,
   ...incoming,
   info: incoming.info && incoming.info.length > 0 ? incoming.info : defaultContact.info,
+  // Get recipient email from contact data or use default
+  recipientEmail: incoming.recipientEmail || 'info@johngalt.am',
 };
 ---
 
@@ -124,7 +126,17 @@ const contact = {
       <!-- Contact Form -->
       <div class="lg:col-span-2">
         <div class="rounded-xl border p-8">
-          <form id="contact-form" class="space-y-6">
+          <form 
+            id="contact-form" 
+            action="https://formspree.io/f/YOUR_FORM_ID" 
+            method="POST"
+            class="space-y-6"
+          >
+            <!-- Hidden fields for Formspree -->
+            <input type="hidden" name="_to" value={contact.recipientEmail} />
+            <input type="hidden" name="_subject" value="New Contact Form Submission from John Galt Website" />
+            <input type="hidden" name="_replyto" value="" id="replyto-field" />
+            <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
             <div class="grid md:grid-cols-2 gap-6">
               <div>
                 <label for="name" class="block text-sm text-gray-700 mb-2">
@@ -163,7 +175,7 @@ const contact = {
                   type="tel"
                   id="phone"
                   name="phone"
-                  placeholder="+7 (XXX) XXX-XX-XX"
+                  placeholder="+381 (xx) xxxxxxx"
                   class="w-full h-9 rounded-md border border-gray-300 px-3 py-1 text-base focus:outline-none focus:ring-2 focus:ring-[#2d4a7c] focus:border-transparent"
                 />
               </div>
@@ -209,10 +221,77 @@ const contact = {
 </section>
 
 <script>
-  document.getElementById('contact-form')?.addEventListener('submit', (e) => {
-    e.preventDefault();
-    alert('Thank you for your inquiry! We\'ll contact you soon.');
-    (e.target as HTMLFormElement).reset();
+  const form = document.getElementById('contact-form') as HTMLFormElement;
+  const emailInput = document.getElementById('email') as HTMLInputElement;
+  const replytoField = document.getElementById('replyto-field') as HTMLInputElement;
+  
+  // Update replyto field when email changes
+  emailInput?.addEventListener('input', () => {
+    if (replytoField) {
+      replytoField.value = emailInput.value;
+    }
+  });
+  
+  form?.addEventListener('submit', async (e) => {
+    const submitButton = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+    const originalButtonText = submitButton.innerHTML;
+    
+    // Disable submit button and show loading state
+    submitButton.disabled = true;
+    submitButton.innerHTML = '<svg class="animate-spin w-5 h-5" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Sending...';
+    
+    // If using Formspree, let it handle the submission
+    // If using API route, prevent default and use fetch
+    const formAction = form.getAttribute('action');
+    
+    if (formAction && formAction.includes('formspree.io') && formAction.includes('YOUR_FORM_ID')) {
+      // Formspree not configured yet - show instructions
+      e.preventDefault();
+      alert('Please configure Formspree first. See CONTACT_FORM_SETUP.md for instructions.');
+      submitButton.disabled = false;
+      submitButton.innerHTML = originalButtonText;
+      return;
+    }
+    
+    // If using API route (for Vercel/Netlify deployment)
+    if (!formAction || formAction.includes('/api/contact')) {
+      e.preventDefault();
+      
+      const formData = new FormData(form);
+      const data = {
+        name: formData.get('name'),
+        email: formData.get('email'),
+        phone: formData.get('phone'),
+        company: formData.get('company'),
+        message: formData.get('message'),
+      };
+      
+      try {
+        const response = await fetch('/api/contact', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        });
+        
+        const result = await response.json();
+        
+        if (response.ok) {
+          alert('Thank you for your inquiry! We\'ll contact you soon.');
+          form.reset();
+        } else {
+          throw new Error(result.error || 'Failed to send message');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        alert('Sorry, there was an error sending your message. Please try again or contact us directly at info@johngalt.am');
+      } finally {
+        submitButton.disabled = false;
+        submitButton.innerHTML = originalButtonText;
+      }
+    }
+    // Otherwise, let Formspree handle it naturally
   });
 </script>
 

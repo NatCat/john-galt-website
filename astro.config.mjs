@@ -1,5 +1,6 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
+import sitemap from '@astrojs/sitemap';
 import path from 'path';
 
 // Only use base path in production (for GitHub Pages)
@@ -17,6 +18,23 @@ export default defineConfig({
       prefixDefaultLocale: false, // English at root (/)
     },
   },
+
+  integrations: [
+    sitemap({
+      i18n: {
+        defaultLocale: 'en',
+        locales: {
+          en: 'en-US',
+          ru: 'ru-RU',
+          sr: 'sr-RS',
+          hy: 'hy-AM',
+          fr: 'fr-FR',
+        },
+      },
+      // Exclude admin page from sitemap
+      filter: (page) => !page.includes('/admin'),
+    }),
+  ],
 
   vite: {
     resolve: {

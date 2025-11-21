@@ -18,6 +18,7 @@
     "zod": "^3.25.76"
   },
   "dependencies": {
+    "@astrojs/sitemap": "^3.6.0",
     "decap-cms": "^3.9.0",
     "netlify-identity-widget": "^1.9.2"
   }
