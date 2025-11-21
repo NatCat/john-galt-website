@@ -1,0 +1,10 @@
+{
+  "languages": [
+    { "code": "en", "enabled": true },
+    { "code": "ru", "enabled": true },
+    { "code": "sr", "enabled": true },
+    { "code": "hy", "enabled": true },
+    { "code": "fr", "enabled": true }
+  ]
+}
+

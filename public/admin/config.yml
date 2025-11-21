@@ -42,6 +42,21 @@ collections:
               - {label: "Icon", name: "icon", widget: "select", options: ["Phone", "Mail", "MapPin"], default: "Phone", required: false}
               - {label: "Text", name: "text", widget: "string", required: false}
 
+  - name: "languages"
+    label: "Language Settings"
+    files:
+      - label: "Language Configuration"
+        name: "languages"
+        file: "src/content/languages.json"
+        format: "json"
+        fields:
+          - label: "Languages"
+            name: "languages"
+            widget: "list"
+            fields:
+              - {label: "Language Code", name: "code", widget: "select", options: ["en", "ru", "sr", "hy", "fr"], required: true, hint: "Language code (e.g., 'en' for English)"}
+              - {label: "Enabled", name: "enabled", widget: "boolean", default: true, hint: "Uncheck to hide this language from the language switcher"}
+
   - name: "posts"
     label: "Posts"
     folder: "src/content/posts"
@@ -218,6 +233,32 @@ collections:
                 widget: "list"
                 required: false
                 field: {label: "Item", name: "item", widget: "string"}
+      - label: "Equipment Section"
+        name: "equipment"
+        widget: "object"
+        required: false
+        collapsed: true
+        fields:
+          - label: "Intro"
+            name: "intro"
+            widget: "object"
+            required: false
+            collapsed: true
+            fields:
+              - {label: "Heading", name: "heading", widget: "string", required: false, hint: "Section heading (e.g., 'Our Equipment Range')"}
+              - {label: "Description", name: "description", widget: "text", required: false, hint: "Introductory paragraph describing your equipment range"}
+          - label: "Categories"
+            name: "categories"
+            widget: "list"
+            required: false
+            fields:
+              - {label: "Title", name: "title", widget: "string", required: false, hint: "Category title (e.g., 'Valves & Flow Control')"}
+              - {label: "Icon", name: "icon", widget: "select", options: ["Valves & Flow Control", "Water Treatment Systems", "Measurement & Monitoring", "Processing Equipment", "Automation & Control", "Industrial Components"], required: false, hint: "Select an icon for this category"}
+              - label: "Items"
+                name: "items"
+                widget: "list"
+                required: false
+                field: {label: "Item", name: "item", widget: "string", hint: "Equipment item description"}
       - label: "News Intro"
         name: "newsIntro"
         widget: "object"

@@ -1,6 +1,7 @@
 ---
 import { languages, getTranslation, getLocalizedPath, type Locale } from '../lib/translations';
 import { getVisibleMenuItems } from '../lib/menu-config';
+import { getEnabledLanguagesInfo, isLanguageEnabled } from '../lib/language-config';
 
 interface Props {
   locale?: Locale;
@@ -10,6 +11,7 @@ const { locale = 'en' } = Astro.props;
 const currentLang = languages[locale];
 const logoSrc = `${import.meta.env.BASE_URL}logo.png`;
 const visibleMenuItems = getVisibleMenuItems();
+const enabledLanguages = getEnabledLanguagesInfo();
 ---
 
 <header class="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-sm shadow-sm z-50">
@@ -46,7 +48,7 @@ const visibleMenuItems = getVisibleMenuItems();
             <span class="text-sm" id="lang-flag">{currentLang.flag}</span>
           </button>
           <div id="lang-menu" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg border border-gray-200 py-1 z-50">
-            {Object.entries(languages).map(([langCode, lang]) => (
+            {Object.entries(enabledLanguages).map(([langCode, lang]) => (
               <a 
                 href={getLocalizedPath(langCode as Locale)} 
                 class="lang-option w-full text-left px-4 py-2 text-sm hover:bg-gray-100 flex items-center justify-between block"
@@ -104,7 +106,7 @@ const visibleMenuItems = getVisibleMenuItems();
       <!-- Mobile Language Switcher -->
       <div class="mt-4 pt-4 border-t">
         <div class="flex flex-col gap-2">
-          {Object.entries(languages).map(([langCode, lang]) => (
+          {Object.entries(enabledLanguages).map(([langCode, lang]) => (
             <a 
               href={getLocalizedPath(langCode as Locale)} 
               class="text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md flex items-center gap-2"

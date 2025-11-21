@@ -150,6 +150,22 @@ const solutionsSchema = z
   })
   .optional();
 
+const equipmentCategorySchema = z.object({
+  title: z.string(),
+  icon: z.string().optional(),
+  items: z.array(z.string()),
+});
+
+const equipmentSchema = z
+  .object({
+    intro: z.object({
+      heading: z.string().optional(),
+      description: z.string().optional(),
+    }).optional(),
+    categories: z.array(equipmentCategorySchema).optional(),
+  })
+  .optional();
+
 const pagesCollection = defineCollection({
   type: 'content',
   schema: z.object({
@@ -164,6 +180,7 @@ const pagesCollection = defineCollection({
     about: aboutSchema,
     history: historySchema,
     solutions: solutionsSchema,
+    equipment: equipmentSchema,
     contact: contactSchema,
     draft: z.boolean().optional().default(false),
   }),

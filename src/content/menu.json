@@ -23,12 +23,12 @@
     {
       "key": "portfolio",
       "path": "portfolio",
-      "visible": true
+      "visible": false
     },
     {
       "key": "representatives",
       "path": "representatives",
-      "visible": true
+      "visible": false
     },
     {
       "key": "papers",
