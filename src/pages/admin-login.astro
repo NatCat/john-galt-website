@@ -20,16 +20,16 @@ function simpleHash(str: string): string {
 // Set ADMIN_USERNAME and ADMIN_PASSWORD in .env file (see .env.example)
 // These are NEVER committed to git - keep them private!
 
-const ADMIN_USERNAME = import.meta.env.ADMIN_USERNAME;
-const ADMIN_PASSWORD = import.meta.env.ADMIN_PASSWORD;
+const ADMIN_USERNAME = import.meta.env.ADMIN_USERNAME || '';
+const ADMIN_PASSWORD = import.meta.env.ADMIN_PASSWORD || '';
 
 // Fallback for development only (will show error if not set)
 if (!ADMIN_USERNAME || !ADMIN_PASSWORD) {
   console.warn('⚠️ ADMIN_USERNAME and ADMIN_PASSWORD must be set in .env file');
 }
 
-// Generate password hash
-const PASSWORD_HASH = simpleHash(ADMIN_PASSWORD);
+// Generate password hash (use empty string if password not set to prevent build errors)
+const PASSWORD_HASH = ADMIN_PASSWORD ? simpleHash(ADMIN_PASSWORD) : '';
 ---
 
 <!DOCTYPE html>
