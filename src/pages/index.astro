@@ -32,7 +32,7 @@ const metaDescription = homeData.description ?? 'John Galt - Innovative solution
       <Services intro={homeData.servicesIntro} items={homeData.services} />
       <Portfolio intro={homeData.portfolioIntro} projects={homeData.portfolio} />
       <About data={homeData.about} locale={locale} />
-      <News />
+      <News locale={locale} />
       <Contact data={homeData.contact} />
     </main>
     <Footer contact={homeData.contact} services={homeData.services} locale={locale} />

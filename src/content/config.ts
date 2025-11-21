@@ -10,6 +10,7 @@ const postsCollection = defineCollection({
     image: z.string().optional(),
     tags: z.array(z.string()).optional(),
     draft: z.boolean().optional().default(false),
+    lang: z.enum(['en', 'ru', 'sr', 'hy', 'fr']).default('en'),
   }),
 });
 

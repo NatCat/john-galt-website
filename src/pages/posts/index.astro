@@ -1,0 +1,106 @@
+---
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import "../../styles/tailwind.css";
+import { getCollection } from 'astro:content';
+import { getLocaleFromUrl } from '../../lib/i18n';
+import { getImageUrl } from '../../lib/image-utils';
+
+const locale = getLocaleFromUrl(Astro.url);
+const allPosts = await getCollection('posts', ({ data }) => !data.draft && (data.lang || 'en') === locale);
+const posts = allPosts.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+---
+
+<html lang={locale}>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content="Latest news and updates from John Galt" />
+    <title>News & Updates - John Galt</title>
+  </head>
+  <body class="min-h-screen bg-white">
+    <Header locale={locale} />
+    <main class="pt-20">
+      <!-- Hero Section -->
+      <section class="bg-gradient-to-b from-[#2d4a7c]/5 to-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="text-center max-w-3xl mx-auto">
+            <div class="inline-block px-4 py-2 bg-[#2d4a7c]/10 text-[#2d4a7c] rounded-full mb-4">
+              Latest News
+            </div>
+            <h1 class="text-4xl md:text-5xl font-serif text-gray-900 mb-6">
+              Industry Updates & Insights
+            </h1>
+            <p class="text-xl text-gray-600">
+              Stay informed about the latest developments in industrial automation and our company achievements.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Posts Grid -->
+      <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {posts.length > 0 ? (
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {posts.map((post) => {
+                const postUrl = locale === 'en' ? `/posts/${post.slug}/` : `/${locale}/posts/${post.slug}/`;
+                return (
+                  <article class="overflow-hidden rounded-xl border hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer group">
+                    <a href={postUrl}>
+                      <div class="relative h-56 overflow-hidden">
+                        {post.data.image ? (
+                          <img
+                            src={getImageUrl(post.data.image)}
+                            alt={post.data.title}
+                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                            loading="lazy"
+                          />
+                        ) : (
+                          <div class="w-full h-full bg-gray-200 flex items-center justify-center">
+                            <span class="text-gray-400">No image</span>
+                          </div>
+                        )}
+                        {post.data.tags && post.data.tags.length > 0 && (
+                          <div class="absolute top-4 left-4 bg-[#2d4a7c] text-white px-3 py-1 rounded-full text-sm">
+                            {post.data.tags[0]}
+                          </div>
+                        )}
+                      </div>
+                      <div class="p-6">
+                        <div class="flex items-center gap-2 text-sm text-gray-500 mb-3">
+                          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                          </svg>
+                          <span>{post.data.pubDate.toLocaleDateString()}</span>
+                        </div>
+                        <h3 class="text-gray-900 mb-3 group-hover:text-[#2d4a7c] transition-colors text-lg font-semibold">
+                          {post.data.title}
+                        </h3>
+                        <p class="text-sm text-gray-600 mb-4">{post.data.description}</p>
+                        <span class="text-[#2d4a7c] hover:text-[#1e3a5f] inline-flex items-center gap-2 text-sm font-medium">
+                          Read More
+                          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                          </svg>
+                        </span>
+                      </div>
+                    </a>
+                  </article>
+                );
+              })}
+            </div>
+          ) : (
+            <div class="text-center py-12">
+              <p class="text-gray-600 text-lg">No posts available yet. Check back soon!</p>
+            </div>
+          )}
+        </div>
+      </section>
+    </main>
+    <Footer locale={locale} />
+  </body>
+</html>
+

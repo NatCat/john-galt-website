@@ -1,8 +1,15 @@
 ---
 import { getCollection } from 'astro:content';
 import { getImageUrl } from '../lib/image-utils';
+import { getLocalizedPath } from '../lib/translations';
+import type { Locale } from '../lib/translations';
 
-const posts = await getCollection('posts', ({ data }) => !data.draft);
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = 'en' } = Astro.props;
+const posts = await getCollection('posts', ({ data }) => !data.draft && (data.lang || 'en') === locale);
 const latestPosts = posts
   .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
   .slice(0, 3);
@@ -42,7 +49,7 @@ const articles =
         pubDate: data.pubDate,
         image: data.image ? getImageUrl(data.image) : 'https://images.unsplash.com/photo-1761195696590-3490ea770aa1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
         category: data.tags?.[0] ?? 'News',
-        url: `/posts/${slug}/`,
+        url: locale === 'en' ? `/posts/${slug}/` : `/${locale}/posts/${slug}/`,
       }))
     : fallbackPosts;
 ---
@@ -98,7 +105,7 @@ const articles =
     </div>
 
     <div class="text-center">
-      <a href="/posts/" class="px-6 py-2 border border-[#2d4a7c] text-[#2d4a7c] rounded-md hover:bg-[#2d4a7c]/5 transition-colors inline-flex items-center gap-2">
+      <a href={getLocalizedPath(locale, 'posts/')} class="px-6 py-2 border border-[#2d4a7c] text-[#2d4a7c] rounded-md hover:bg-[#2d4a7c]/5 transition-colors inline-flex items-center gap-2">
         View All News
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>

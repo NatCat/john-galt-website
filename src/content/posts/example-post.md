@@ -21,7 +21,8 @@ The system integrates real-time adjustment of component ratios, automatic loggin
 
 The new module line will serve as a pilot for further implementation across the region.
 
+
+
 📍 Deployed: Q4 2025
+
 🔧 Technology used: Ruchey dosing block v3.2 + PLC/SCADA integration
-
-
