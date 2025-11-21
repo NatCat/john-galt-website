@@ -23,10 +23,11 @@ jobs:
           cache: npm
       - run: npm ci
       - name: Create .env file from secrets
-        if: secrets.ADMIN_USERNAME != '' && secrets.ADMIN_PASSWORD != ''
         run: |
-          echo "ADMIN_USERNAME=${{ secrets.ADMIN_USERNAME }}" >> .env
-          echo "ADMIN_PASSWORD=${{ secrets.ADMIN_PASSWORD }}" >> .env
+          if [ -n "${{ secrets.ADMIN_USERNAME }}" ] && [ -n "${{ secrets.ADMIN_PASSWORD }}" ]; then
+            echo "ADMIN_USERNAME=${{ secrets.ADMIN_USERNAME }}" >> .env
+            echo "ADMIN_PASSWORD=${{ secrets.ADMIN_PASSWORD }}" >> .env
+          fi
       - run: npm run build
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
