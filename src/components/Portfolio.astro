@@ -1,4 +1,6 @@
 ---
+import { getImageUrl } from '../lib/image-utils';
+
 const defaultIntro = {
   tag: 'Portfolio',
   heading: 'Our Projects & Solutions',
@@ -82,6 +84,8 @@ const projects = (Astro.props.projects && Astro.props.projects.length > 0
 ).map((project, index) => ({
   ...defaultProjects[index % defaultProjects.length],
   ...project,
+  // Resolve image URL if it's from CMS
+  image: project.image ? getImageUrl(project.image) : (defaultProjects[index % defaultProjects.length]?.image || ''),
 }));
 ---
 
@@ -101,18 +105,26 @@ const projects = (Astro.props.projects && Astro.props.projects.length > 0
 
     <!-- Project Grid -->
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {projects.map((project) => (
+      {projects.map((project, index) => (
         <div class="overflow-hidden rounded-xl border hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer group">
           <div class="relative h-48 overflow-hidden">
-            <img
-              src={project.image}
-              alt={project.title}
-              class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-              loading="lazy"
-            />
-            <div class="absolute top-4 left-4 bg-[#2d4a7c] text-white w-12 h-12 rounded-lg flex items-center justify-center group-hover:bg-[#1e3a5f] transition-colors font-semibold">
-              {project.number}
-            </div>
+            {project.image ? (
+              <img
+                src={project.image}
+                alt={project.title}
+                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                loading="lazy"
+              />
+            ) : (
+              <div class="w-full h-full bg-gray-200 flex items-center justify-center">
+                <span class="text-gray-400">No image</span>
+              </div>
+            )}
+            {project.number && (
+              <div class="absolute top-4 left-4 bg-[#2d4a7c] text-white w-12 h-12 rounded-lg flex items-center justify-center group-hover:bg-[#1e3a5f] transition-colors font-semibold">
+                {project.number}
+              </div>
+            )}
           </div>
           <div class="p-6">
             <div class="text-sm text-[#2d4a7c] mb-1">{project.category}</div>

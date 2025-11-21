@@ -66,11 +66,11 @@ const servicesSchema = z
 const portfolioSchema = z
   .array(
     z.object({
-      number: z.string(),
+      number: z.string().optional(),
       title: z.string(),
-      category: z.string(),
-      description: z.string(),
-      image: z.string(),
+      category: z.string().optional(),
+      description: z.string().optional(),
+      image: z.string().optional(),
     }),
   )
   .optional();
