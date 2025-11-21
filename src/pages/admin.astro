@@ -7,6 +7,19 @@
 </head>
 <body>
   <div id="nc-root"></div>
+  <script>
+    // Check authentication on client side
+    const isAuthenticated = sessionStorage.getItem('admin-authenticated') === 'true';
+    const authTimestamp = parseInt(sessionStorage.getItem('admin-timestamp') || '0');
+    const SESSION_TIMEOUT = 8 * 60 * 60 * 1000; // 8 hours
+    
+    // Check if session is still valid
+    if (!isAuthenticated || (Date.now() - authTimestamp) > SESSION_TIMEOUT) {
+      sessionStorage.removeItem('admin-authenticated');
+      sessionStorage.removeItem('admin-timestamp');
+      window.location.href = '/admin-login/';
+    }
+  </script>
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 </body>
 </html>

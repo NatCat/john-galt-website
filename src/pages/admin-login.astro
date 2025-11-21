@@ -1,0 +1,219 @@
+---
+// Simple password protection for admin panel
+// Password is hashed using a simple approach (not production-grade, but better than plain text)
+// For production, consider using a proper authentication service
+
+// Simple hash function (for basic protection)
+function simpleHash(str: string): string {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    const char = str.charCodeAt(i);
+    hash = ((hash << 5) - hash) + char;
+    hash = hash & hash; // Convert to 32bit integer
+  }
+  return hash.toString();
+}
+
+// ============================================
+// ADMIN CREDENTIALS - USE ENVIRONMENT VARIABLES
+// ============================================
+// Set ADMIN_USERNAME and ADMIN_PASSWORD in .env file (see .env.example)
+// These are NEVER committed to git - keep them private!
+
+const ADMIN_USERNAME = import.meta.env.ADMIN_USERNAME;
+const ADMIN_PASSWORD = import.meta.env.ADMIN_PASSWORD;
+
+// Fallback for development only (will show error if not set)
+if (!ADMIN_USERNAME || !ADMIN_PASSWORD) {
+  console.warn('⚠️ ADMIN_USERNAME and ADMIN_PASSWORD must be set in .env file');
+}
+
+// Generate password hash
+const PASSWORD_HASH = simpleHash(ADMIN_PASSWORD);
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Login - John Galt</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: linear-gradient(135deg, #2d4a7c 0%, #1e3a5f 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .login-container {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      padding: 40px;
+      max-width: 400px;
+      width: 100%;
+    }
+    .login-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .login-header h1 {
+      color: #2d4a7c;
+      font-size: 28px;
+      margin-bottom: 8px;
+    }
+    .login-header p {
+      color: #666;
+      font-size: 14px;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .form-group label {
+      display: block;
+      color: #333;
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #e0e0e0;
+      border-radius: 6px;
+      font-size: 16px;
+      transition: border-color 0.3s;
+    }
+    .form-group input:focus {
+      outline: none;
+      border-color: #2d4a7c;
+    }
+    .error-message {
+      background: #fee;
+      color: #c33;
+      padding: 12px;
+      border-radius: 6px;
+      font-size: 14px;
+      margin-bottom: 20px;
+      display: none;
+    }
+    .error-message.show {
+      display: block;
+    }
+    .login-button {
+      width: 100%;
+      padding: 14px;
+      background: #2d4a7c;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .login-button:hover {
+      background: #1e3a5f;
+    }
+    .login-button:active {
+      transform: scale(0.98);
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <div class="login-header">
+      <h1>Admin Login</h1>
+      <p>John Galt Industrial Solutions</p>
+    </div>
+    <div id="error-message" class="error-message"></div>
+    <form id="login-form">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" required autocomplete="username" />
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required autocomplete="current-password" />
+      </div>
+      <button type="submit" class="login-button">Login</button>
+    </form>
+  </div>
+
+  <script define:vars={{ username: ADMIN_USERNAME, passwordHash: PASSWORD_HASH }}>
+    const ADMIN_USERNAME = username;
+    const PASSWORD_HASH = passwordHash;
+    
+    // Check if credentials are configured
+    if (!ADMIN_USERNAME || !PASSWORD_HASH) {
+      document.addEventListener('DOMContentLoaded', () => {
+        const form = document.getElementById('login-form');
+        const errorEl = document.getElementById('error-message');
+        if (form) form.style.display = 'none';
+        if (errorEl) {
+          errorEl.textContent = 'Error: Admin credentials not configured. Please set ADMIN_USERNAME and ADMIN_PASSWORD in .env file (local) or GitHub Secrets (production).';
+          errorEl.classList.add('show');
+          errorEl.style.background = '#fff3cd';
+          errorEl.style.color = '#856404';
+          errorEl.style.border = '1px solid #ffc107';
+        }
+      });
+    }
+
+    function simpleHash(str) {
+      let hash = 0;
+      for (let i = 0; i < str.length; i++) {
+        const char = str.charCodeAt(i);
+        hash = ((hash << 5) - hash) + char;
+        hash = hash & hash;
+      }
+      return hash.toString();
+    }
+
+    function showError(message) {
+      const errorEl = document.getElementById('error-message');
+      errorEl.textContent = message;
+      errorEl.classList.add('show');
+      setTimeout(() => {
+        errorEl.classList.remove('show');
+      }, 5000);
+    }
+
+    document.getElementById('login-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      
+      // Check username
+      if (username !== ADMIN_USERNAME) {
+        showError('Invalid username or password');
+        return;
+      }
+      
+      // Check password hash
+      const passwordHash = simpleHash(password);
+      if (passwordHash !== PASSWORD_HASH) {
+        showError('Invalid username or password');
+        return;
+      }
+      
+      // Store authentication in sessionStorage
+      sessionStorage.setItem('admin-authenticated', 'true');
+      sessionStorage.setItem('admin-timestamp', Date.now().toString());
+      
+      // Redirect to admin panel
+      window.location.href = '/admin/';
+    });
+  </script>
+</body>
+</html>
+
