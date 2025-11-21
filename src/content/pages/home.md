@@ -2,9 +2,9 @@
 lang: en
 title: Home
 hero:
-  heading: Your Trusted Partner in Industrial Automation Solutions
-  subheading: Exploring innovative solutions for sustainable technology and
-    industrial automation.
+  heading: Your Engineering Partner in Vodka Tech & Industrial Automation
+  subheading: Delivering smart, sustainable, and scalable solutions for spirit
+    production and industrial control systems.
   primaryCta:
     label: Explore Services
     url: "#services"
@@ -150,8 +150,8 @@ contact:
     - icon: Mail
       title: Email
       lines:
-        - info@rtc-automation.com
-        - support@rtc-automation.com
+        - info@john-galt.me
+        - support@john-galt.me
     - icon: MapPin
       title: Location
       lines:
