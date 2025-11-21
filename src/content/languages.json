@@ -1,10 +1,24 @@
 {
   "languages": [
-    { "code": "en", "enabled": true },
-    { "code": "ru", "enabled": true },
-    { "code": "sr", "enabled": true },
-    { "code": "hy", "enabled": true },
-    { "code": "fr", "enabled": true }
+    {
+      "code": "en",
+      "enabled": true
+    },
+    {
+      "code": "ru",
+      "enabled": false
+    },
+    {
+      "code": "sr",
+      "enabled": false
+    },
+    {
+      "code": "hy",
+      "enabled": false
+    },
+    {
+      "code": "fr",
+      "enabled": false
+    }
   ]
 }
-
