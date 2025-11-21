@@ -23,10 +23,10 @@ hero:
       label: Satisfaction
 servicesIntro:
   tag: Our Services
-  heading: Comprehensive Industrial Solutions
-  description: We provide end-to-end solutions for industrial automation,
-    combining cutting-edge technology with decades of expertise in the food
-    processing industry.
+  heading: Integrated Solutions for the Beverage & Automation Industry
+  description: We engineer, build, and support full-cycle systems — from vodka
+    blending lines and water purification to real-time industrial automation,
+    tailored to your production needs.
 services:
   - icon: Factory
     title: Industrial Automation Systems
